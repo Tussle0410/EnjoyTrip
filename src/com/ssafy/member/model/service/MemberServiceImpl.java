@@ -1,5 +1,5 @@
 package com.ssafy.member.model.service;
 
-public class MemberServiceImpl {
+public class MemberServiceImpl implements MemberService{
 
 }

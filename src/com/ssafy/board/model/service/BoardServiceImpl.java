@@ -1,5 +1,5 @@
 package com.ssafy.board.model.service;
 
-public class BoardServiceImpl {
+public class BoardServiceImpl implements BoardService{
 
 }
