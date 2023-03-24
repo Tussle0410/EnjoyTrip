@@ -27,7 +27,7 @@ window.onload = function () {
       "pw": pw
     }
     localStorage.setItem("userInfo", JSON.stringify(userInfo));
-    location.href = location.origin + "/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/index.jsp";
+    location.href = location.origin + "/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/view/main.jsp";
   });
 };
 
