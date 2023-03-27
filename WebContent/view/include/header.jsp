@@ -21,7 +21,6 @@
     <!-- Slick -->
     <link rel="stylesheet" type="text/css" href="${root}/assets/css/slick.min.css" />
     <link rel="stylesheet" type="text/css" href="${root}/assets/css/slick-theme.css" />
-    <!-- <script src="${root}/assets/js/member.js"></script> -->
     <c:if test="${userInfo eq null}" >
     	<script>
     		alert('${msg}');
