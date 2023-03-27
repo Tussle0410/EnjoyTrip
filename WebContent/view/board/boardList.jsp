@@ -72,7 +72,8 @@
               </tr>
             </thead>
             <tbody>
-            <c:forEach var="article" items="${articles}">
+            <c:if test="${not empty articles}">
+            	<c:forEach var="article" items="${articles}">
            		<tr>
                 <td>${article.articleNo }</td>
                 <td class="border-category" style="color: #ad7be9">${article.articleCategory }</td>
@@ -83,35 +84,7 @@
                 <td>${article.like }</td>
               </tr>
             </c:forEach>
-           	<!-- 
-           		   <tr>
-                <td>0</td>
-                <td class="border-category" style="color: #ad7be9">추천</td>
-                <td class="border-title">양평 여행가실 때 맛집 추천드려요</td>
-                <td>박싸피</td>
-                <td>2023-03-17</td>
-                <td>1</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td class="border-category" style="color: #ffb84c">질문</td>
-                <td class="border-title">부산 맛집 추천해주세요!</td>
-                <td>김싸피</td>
-                <td>2023-03-17</td>
-                <td>10</td>
-                <td>5</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td class="border-category" style="color: #eb455f">후기</td>
-                <td class="border-title">대구 OO호텔 후기</td>
-                <td>이싸피</td>
-                <td>2023-03-17</td>
-                <td>0</td>
-                <td>0</td>
-              </tr>
-           	 -->
+            </c:if>
             </tbody>
           </table>
           <div id="board-article-write-div">
