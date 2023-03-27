@@ -43,7 +43,7 @@ public class ArticleDaoImpl implements ArticleDao{
 				articleDto.setTitle(rs.getString("title"));
 				articleDto.setContent(rs.getString("content"));
 				articleDto.setArticleCategory(rs.getString("article_category"));
-				articleDto.setEmails(rs.getString("email"));
+				articleDto.setEmail(rs.getString("email"));
 				articleDto.setHit(rs.getInt("hit"));
 				articleDto.setRegistTime(rs.getDate("registtime"));
 				articleDto.setLike(rs.getInt("like"));

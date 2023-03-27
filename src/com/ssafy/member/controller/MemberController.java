@@ -73,7 +73,8 @@ public class MemberController extends HttpServlet {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "/view/member/login.jsp";
+			request.setAttribute("msg", "로그인 중 에러 발생!!!");
+			return "/view/error/error.jsp";
 		}
 	}
 	

@@ -21,11 +21,10 @@
     <!-- Slick -->
     <link rel="stylesheet" type="text/css" href="${root}/assets/css/slick.min.css" />
     <link rel="stylesheet" type="text/css" href="${root}/assets/css/slick-theme.css" />
-    <!-- <script src="${root}/assets/js/member.js"></script> -->
     <c:if test="${userInfo eq null}" >
     	<script>
-    		alert('${msg}');
-    		<c:redirect url="/view/member/login.jsp" context="${root}"></c:redirect>
+    		alert("로그인이 필요한 페이지 입니다.");
+    		location.href = "${root}/view/member/login.jsp";
     	</script>
 	</c:if>
 </head>
@@ -46,7 +45,7 @@
                 <a class="nav-link" href="${root}/attraction?action=sidoFind">지역별 여행지</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="${root}/view/board/boardList.jsp">게시판</a>
+                <a class="nav-link" href="${root}/article?action=list">게시판</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="${root}/view/worldcup/tourWorldcup.jsp">여행지 월드컵</a>

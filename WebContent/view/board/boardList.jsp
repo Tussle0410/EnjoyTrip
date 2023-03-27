@@ -72,7 +72,19 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+            <c:forEach var="article" items="${articles}">
+           		<tr>
+                <td>${article.articleNo }</td>
+                <td class="border-category" style="color: #ad7be9">${article.articleCategory }</td>
+                <td class="border-title">${article.content }</td>
+               	<td>${article.email}</td>
+                <td>${article.registTime }</td>
+                <td>${article.hit }</td>
+                <td>${article.like }</td>
+              </tr>
+            </c:forEach>
+           	<!-- 
+           		   <tr>
                 <td>0</td>
                 <td class="border-category" style="color: #ad7be9">추천</td>
                 <td class="border-title">양평 여행가실 때 맛집 추천드려요</td>
@@ -99,6 +111,7 @@
                 <td>0</td>
                 <td>0</td>
               </tr>
+           	 -->
             </tbody>
           </table>
           <div id="board-article-write-div">

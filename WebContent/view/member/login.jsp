@@ -16,7 +16,6 @@
     />
     <link rel="stylesheet" href="${root}/assets/css/ani.css" />
     <link rel="stylesheet" href="${root}/assets/css/login.css" />
-    <!-- <script src="${root}/assets/js/login.js"></script> -->
     <title>Document</title>
     <c:if test="${not empty msg }">
     	<script>
