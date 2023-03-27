@@ -16,8 +16,13 @@
     />
     <link rel="stylesheet" href="${root}/assets/css/ani.css" />
     <link rel="stylesheet" href="${root}/assets/css/login.css" />
-    <script src="${root}/assets/js/login.js"></script>
+    <!-- <script src="${root}/assets/js/login.js"></script> -->
     <title>Document</title>
+    <c:if test="${not empty msg }">
+    	<script>
+    	alert('${msg}');
+    </script>
+    </c:if>
   </head>
   <body>
     <div id="retrobg">
@@ -210,20 +215,24 @@
       </header>
       <div id="login-div">
         <h2>Login</h2>
-        <div id="sign-form">
+        <form method="post" action="${root}/member">
+        	<div id="sign-form">
+        	<input type="hidden" name="action" value="login" />
           <input
             id="email-input"
             class="input-text"
+            name="email"
             type="email"
             required
             placeholder="Your Email"
           />
-          <input id="pw-input" class="input-text" type="password" placeholder="Your Password" />
+          <input id="pw-input" name="pwd" class="input-text" type="password" placeholder="Your Password" />
           <div id="personal-info_agree">
             <label><input type="checkbox" />Save ID</label>
           </div>
-          <button id="sign-btn">Login</button>
+          <input type="submit" id="sign-btn" value="login" />
         </div>
+        </form>
         <div id="sign-desc">Aren't you a member?<a href="regist.jsp">Sign Up</a></div>
         <div id="sign-found">
           <a href="found.jsp">Forgot ID/PW?</a>
