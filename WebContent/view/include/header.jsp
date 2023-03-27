@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath }" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,13 @@
     <!-- Slick -->
     <link rel="stylesheet" type="text/css" href="${root}/assets/css/slick.min.css" />
     <link rel="stylesheet" type="text/css" href="${root}/assets/css/slick-theme.css" />
-    <script src="${root}/assets/js/member.js"></script>
+    <!-- <script src="${root}/assets/js/member.js"></script> -->
+    <c:if test="${empty userInfo}" >
+    	<script>
+    		alert('${msg}');
+    		<c:redirect url="/view/member/login.jsp" context="${root}"></c:redirect>
+    	</script>
+	</c:if>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light shadow">
@@ -47,7 +54,7 @@
             </ul>
           </div>
           <div class="navbar align-self-center d-flex">
-            <a class="nav-icon d-none d-lg-inline" href="#" onclick="logout();">
+            <a class="nav-icon d-none d-lg-inline" href="${root}/member?action=logout">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
