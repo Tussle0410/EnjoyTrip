@@ -46,7 +46,7 @@
                 <a class="nav-link" href="${root}/view/tour/tourMap.jsp">지역별 여행지</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="${root}/view/board/boardList.jsp">게시판</a>
+                <a class="nav-link" href="${root}/article?action=list">게시판</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="${root}/view/worldcup/tourWorldcup.jsp">여행지 월드컵</a>

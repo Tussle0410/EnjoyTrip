@@ -35,10 +35,10 @@ public class ArticleDto {
 	public void setArticleCategory(String articleCategory) {
 		this.articleCategory = articleCategory;
 	}
-	public String getEmails() {
+	public String getEmail() {
 		return email;
 	}
-	public void setEmails(String imgs) {
+	public void setEmail(String imgs) {
 		this.email = imgs;
 	}
 	public int getHit() {

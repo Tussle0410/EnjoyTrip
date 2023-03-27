@@ -57,9 +57,11 @@ public class ArticleController extends HttpServlet {
 		try {
 			List<ArticleDto> list = articleService.BoardFindByAll();
 			request.setAttribute("articles", list);
+			return "/view/board/boardList.jsp";
 		} catch (SQLException e) {
 			e.printStackTrace();
+			request.setAttribute("msg", "게시글 호출에 실패했습니다.");
+			return "/view/error/error.jsp";
 		}
-		return "/board/boardList.jsp";
 	}
 }
