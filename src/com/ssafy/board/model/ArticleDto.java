@@ -2,12 +2,12 @@ package com.ssafy.board.model;
 
 import java.util.Date;
 
-public class BoardDto {
+public class ArticleDto {
 	private int articleNo;
 	private String title;
 	private String content;
 	private String articleCategory;
-	private String imgs;
+	private String email;
 	private int hit;
 	private Date registTime;
 	private int like;
@@ -35,11 +35,11 @@ public class BoardDto {
 	public void setArticleCategory(String articleCategory) {
 		this.articleCategory = articleCategory;
 	}
-	public String getImgs() {
-		return imgs;
+	public String getEmails() {
+		return email;
 	}
-	public void setImgs(String imgs) {
-		this.imgs = imgs;
+	public void setEmails(String imgs) {
+		this.email = imgs;
 	}
 	public int getHit() {
 		return hit;
@@ -62,7 +62,7 @@ public class BoardDto {
 	@Override
 	public String toString() {
 		return "BoardDto [articleNo=" + articleNo + ", title=" + title + ", content=" + content + ", articleCategory="
-				+ articleCategory + ", imgs=" + imgs + ", hit=" + hit + ", registTime=" + registTime + ", like=" + like
+				+ articleCategory + ", imgs=" + email + ", hit=" + hit + ", registTime=" + registTime + ", like=" + like
 				+ "]";
 	}
 	

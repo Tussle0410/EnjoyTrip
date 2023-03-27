@@ -1,12 +1,12 @@
-package com.ssafy.review.model;
+package com.ssafy.board.model;
 
 import java.sql.Date;
 
-public class ReviewDto {
+public class ArticleReviewDto {
 	private int reviewNo;
 	private int articleNo;
 	private String content;
-	private Date registTime;
+	private Date registtime;
 	private String email;
 	public int getReviewNo() {
 		return reviewNo;
@@ -26,11 +26,11 @@ public class ReviewDto {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegistTime() {
-		return registTime;
+	public Date getRegisttime() {
+		return registtime;
 	}
-	public void setRegistTime(Date registTime) {
-		this.registTime = registTime;
+	public void setRegisttime(Date registtime) {
+		this.registtime = registtime;
 	}
 	public String getEmail() {
 		return email;
@@ -40,7 +40,8 @@ public class ReviewDto {
 	}
 	@Override
 	public String toString() {
-		return "ReviewDto [reviewNo=" + reviewNo + ", articleNo=" + articleNo + ", content=" + content + ", registTime="
-				+ registTime + ", email=" + email + "]";
+		return "ArticleReviewDto [reviewNo=" + reviewNo + ", articleNo=" + articleNo + ", content=" + content
+				+ ", registtime=" + registtime + ", email=" + email + "]";
 	}
+	
 }
