@@ -23,8 +23,8 @@
     <link rel="stylesheet" type="text/css" href="${root}/assets/css/slick-theme.css" />
     <c:if test="${userInfo eq null}" >
     	<script>
-    		alert('${msg}');
-    		<c:redirect url="/view/member/login.jsp" context="${root}"></c:redirect>
+    		alert("로그인이 필요한 페이지 입니다.");
+    		location.href = "${root}/view/member/login.jsp";
     	</script>
 	</c:if>
 </head>
