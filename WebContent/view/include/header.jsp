@@ -22,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="${root}/assets/css/slick.min.css" />
     <link rel="stylesheet" type="text/css" href="${root}/assets/css/slick-theme.css" />
     <!-- <script src="${root}/assets/js/member.js"></script> -->
-    <c:if test="${empty userInfo}" >
+    <c:if test="${userInfo eq null}" >
     	<script>
     		alert('${msg}');
     		<c:redirect url="/view/member/login.jsp" context="${root}"></c:redirect>

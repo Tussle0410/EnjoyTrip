@@ -18,7 +18,7 @@ public class ArticleDaoImpl implements ArticleDao{
 		dbUtil = DBUtil.getInstance();
 	}
 	
-	public ArticleDao getInstance() {
+	public static ArticleDao getInstance() {
 		if(instance == null)
 			return new ArticleDaoImpl();
 		else
