@@ -43,7 +43,7 @@
           <div class="flex-fill">
             <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
               <li class="nav-item">
-                <a class="nav-link" href="${root}/view/tour/tourMap.jsp">지역별 여행지</a>
+                <a class="nav-link" href="${root}/attraction?action=sidoFind">지역별 여행지</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="${root}/view/board/boardList.jsp">게시판</a>

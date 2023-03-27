@@ -1,12 +1,9 @@
 let serviceKey = "hcKdeTIk7zLMkYbUAHEOcXhKRdrDIV4vUXgKVg31qeqB6eJaWfmjQ9SHI6OzGN3p7qI37SfxIbPrLPp15Iglug%3D%3D";
-let areaUrl =
-    "https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=" +
-    serviceKey +
-    "&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json";
+let areaUrl ="${root}/attraction?action=sidoFind";
 
 window.onload = () => {
     // 지역별 여행지 페이지 들어갈 떄 selectBox 도시 목록 얻기
-    fetch(areaUrl, { method: "GET" })
+    fetch(areaUrl, { method: "GET"})
         .then((response) => response.json())
         .then((data) => makeOption(data));
 
