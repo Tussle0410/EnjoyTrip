@@ -8,5 +8,5 @@ import com.ssafy.attraction.model.dto.SidoDto;
 
 public interface AttractionService {
 	List<SidoDto> sidoFindByAll() throws Exception;
-	List<GugunDto> gugunFindBySido(SidoDto sidoDto) throws Exception;
+	List<GugunDto> gugunFindBySido(int sidoCode) throws Exception;
 }

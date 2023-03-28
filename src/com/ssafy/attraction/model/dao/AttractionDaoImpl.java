@@ -57,7 +57,7 @@ public class AttractionDaoImpl implements AttractionDao {
 	}
 
 	@Override
-	public List<GugunDto> gugunFindBySido(SidoDto sidoDto) throws SQLException {
+	public List<GugunDto> gugunFindBySido(int sidoCode) throws SQLException {
 		List<GugunDto> result = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -65,9 +65,9 @@ public class AttractionDaoImpl implements AttractionDao {
 		try {
 			conn = dbUtil.getConnection();
 			StringBuilder sql = new StringBuilder();
-			sql.append("select * from sido where sido_code = ?");
+			sql.append("select * from gugun where sido_code = ?");
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, sidoDto.getSidoCode());
+			pstmt.setInt(1, sidoCode);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				GugunDto gugunDto = new GugunDto();

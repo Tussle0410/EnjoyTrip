@@ -1,9 +1,10 @@
 let serviceKey = "hcKdeTIk7zLMkYbUAHEOcXhKRdrDIV4vUXgKVg31qeqB6eJaWfmjQ9SHI6OzGN3p7qI37SfxIbPrLPp15Iglug%3D%3D";
-let areaUrl ="http://localhost:8080/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/attraction?action=sidoFind";
+let sidoUrl ="http://localhost:8080/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/attraction?action=sidoFind";
+let gugunUrl ="http://localhost:8080/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/attraction?action=gugunFind&sidoCode=";
 
 window.onload = () => {
     // 지역별 여행지 페이지 들어갈 떄 selectBox 도시 목록 얻기
-    fetch(areaUrl, { method: "GET"})
+    fetch(sidoUrl, { method: "GET"})
         .then((response) => response.json())
         .then((data) => makeOption(data));
 
@@ -13,6 +14,9 @@ window.onload = () => {
         init(param);
         setSelectBox();
     }
+    document.getElementById("search-area").addEventListener("change", function () {
+    	makeGugun(this.value);
+    });
 };
 
 function init(param) {
@@ -42,8 +46,6 @@ function setSelectBox() {
 
 // 도시 코드 얻어서 selectBox목록 생성
 function makeOption(data) {
-     console.log(data);
-//    let areas = data.Array
     let sel = document.getElementById("search-area");
     data.forEach(function (data) {
         let opt = document.createElement("option");
@@ -54,27 +56,24 @@ function makeOption(data) {
 };
 
 // selectBox 도시 선택 후 해당 도시의 군,구 selectBox목록 생성
-function makeGunGu(target) {
-    // console.log(target.value);
-    let areaCode = target.value;
-    let gunGuUrl = `https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=hcKdeTIk7zLMkYbUAHEOcXhKRdrDIV4vUXgKVg31qeqB6eJaWfmjQ9SHI6OzGN3p7qI37SfxIbPrLPp15Iglug%3D%3D&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest&areaCode=${areaCode}&_type=json`;
-    fetch(gunGuUrl, { method: "GET" })
+function makeGugun(target) {
+    let url = gugunUrl + target;
+    fetch(url, { method: "GET" })
         .then((response) => response.json())
-        .then((data) => makeGunGuOption(data));
+        .then((data) => makeGugunOption(data));
 }
 
-function makeGunGuOption(data) {
-    let gungus = data.response.body.items.item;
+function makeGugunOption(data) {
     let sel = document.getElementById("search-gungu");
     // 이전 값 존재하면 제거
     for (let i = sel.options.length - 1; i > 0; i--) {
         sel.remove(i);
     }
 
-    gungus.forEach(function (gungu) {
+    data.forEach(function (data) {
         let opt = document.createElement("option");
-        opt.setAttribute("value", gungu.code);
-        opt.appendChild(document.createTextNode(gungu.name));
+        opt.setAttribute("value", data.gugunCode);
+        opt.appendChild(document.createTextNode(data.gugunName));
         sel.appendChild(opt);
     });
 }

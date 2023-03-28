@@ -34,8 +34,8 @@ public class AttractionServiceImpl implements AttractionService{
 	}
 
 	@Override
-	public List<GugunDto> gugunFindBySido(SidoDto sidoDto) throws Exception {
-		return attractionDao.gugunFindBySido(sidoDto);
+	public List<GugunDto> gugunFindBySido(int sidoCode) throws Exception {
+		return attractionDao.gugunFindBySido(sidoCode);
 	}
 
 }
