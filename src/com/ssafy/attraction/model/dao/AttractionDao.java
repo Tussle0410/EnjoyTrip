@@ -8,6 +8,6 @@ import com.ssafy.attraction.model.dto.SidoDto;
 
 public interface AttractionDao {
 	List<SidoDto> sidoFindByAll() throws SQLException;
-	List<GugunDto> gugunFindBySido(SidoDto sidoDto) throws SQLException;
+	List<GugunDto> gugunFindBySido(int sidoCode) throws SQLException;
 	
 }

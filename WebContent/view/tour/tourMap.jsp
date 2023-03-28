@@ -27,14 +27,13 @@
     <section class="container py-5">
       <div class="row text-center pt-3">
         <div class="col-lg-12" style="display: flex; justify-content: center">
-        <form action="${root}/attraction" method="POST">
+        <form>
           <!--  <form class="d-flex my-3" onsubmit="return false;" role="search">-->
             <div id="trip-selecter-form">
             <input type="hidden" name="action" value="sidoFind"/>
               <select
                 id="search-area"
                 class="form-select me-2 select-box"
-                onchange="makeGungu(this)"
               >
                 <option value="0" selected>지역 선택</option>
               </select>
@@ -52,7 +51,7 @@
                 <option value="38">쇼핑</option>
                 <option value="39">음식점</option>
               </select>
-              <button id="btn-search" class="btn btn-outline-primary" type="submit">검색</button>
+              <button id="btn-search" class="btn btn-outline-primary" type="button">검색</button>
             </div>
           </form>
         </div>
@@ -89,6 +88,8 @@
 
     <!-- Start Script -->
 	<script src="${root}/assets/js/kakaoMap.js"></script> 
+	<%--
+	
     <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd2a3494477a9c7735642bac8ac8bcbe&libraries=services,clusterer,drawing"
@@ -142,6 +143,7 @@
       // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
       // marker.setMap(null);
     </script>
+	 --%>
     <!-- End Script -->
   </body>
 </html>

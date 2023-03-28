@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.ssafy.attraction.model.dto.GugunDto;
 import com.ssafy.attraction.model.dto.SidoDto;
 import com.ssafy.attraction.model.service.AttractionService;
 import com.ssafy.attraction.model.service.AttractionServiceImpl;
@@ -43,7 +44,16 @@ public class AttractionController extends HttpServlet{
 	
 	
 	private void gugunFind(HttpServletRequest req, HttpServletResponse resp) {
-		System.out.println("따랑");
+		try {
+			int sidoCode = Integer.parseInt(req.getParameter("sidoCode"));
+			List<GugunDto> guguns = attractionService.gugunFindBySido(sidoCode);
+			resp.setContentType("text/html;charset=utf-8");
+			PrintWriter out = resp.getWriter();
+			String jsonStr = gson.toJson(guguns);
+			out.print(jsonStr);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void sidoFind(HttpServletRequest req, HttpServletResponse resp) {
@@ -56,7 +66,6 @@ public class AttractionController extends HttpServlet{
 	        out.print(jsonStr);
 		}catch(Exception e) {
 			e.printStackTrace();
-			req.setAttribute("msg", "시도 코드 가져올 수 없습니다.");
 		}
 	}
 
