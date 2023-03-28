@@ -1,3 +1,5 @@
+<%@page import="com.ssafy.attraction.model.dto.SidoDto"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,12 +27,14 @@
     <section class="container py-5">
       <div class="row text-center pt-3">
         <div class="col-lg-12" style="display: flex; justify-content: center">
-          <form class="d-flex my-3" onsubmit="return false;" role="search">
+        <form action="${root}/attraction" method="POST">
+          <!--  <form class="d-flex my-3" onsubmit="return false;" role="search">-->
             <div id="trip-selecter-form">
+            <input type="hidden" name="action" value="sidoFind"/>
               <select
                 id="search-area"
                 class="form-select me-2 select-box"
-                onchange="makeGunGu(this)"
+                onchange="makeGungu(this)"
               >
                 <option value="0" selected>지역 선택</option>
               </select>
@@ -84,12 +88,13 @@
     <!-- End Footer -->
 
     <!-- Start Script -->
-	<script src="${root}/assets/js/kakaoMap.js"></script>
+	<script src="${root}/assets/js/kakaoMap.js"></script> 
     <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd2a3494477a9c7735642bac8ac8bcbe&libraries=services,clusterer,drawing"
     ></script>
     <script>
+    
       var container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
       var options = {
         //지도를 생성할 때 필요한 기본 옵션
@@ -137,7 +142,6 @@
       // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
       // marker.setMap(null);
     </script>
-    <script></script>
     <!-- End Script -->
   </body>
 </html>

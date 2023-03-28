@@ -1,12 +1,9 @@
 let serviceKey = "hcKdeTIk7zLMkYbUAHEOcXhKRdrDIV4vUXgKVg31qeqB6eJaWfmjQ9SHI6OzGN3p7qI37SfxIbPrLPp15Iglug%3D%3D";
-let areaUrl =
-    "https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=" +
-    serviceKey +
-    "&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json";
+let areaUrl ="http://localhost:8080/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/attraction?action=sidoFind";
 
 window.onload = () => {
     // 지역별 여행지 페이지 들어갈 떄 selectBox 도시 목록 얻기
-    fetch(areaUrl, { method: "GET" })
+    fetch(areaUrl, { method: "GET"})
         .then((response) => response.json())
         .then((data) => makeOption(data));
 
@@ -20,12 +17,10 @@ window.onload = () => {
 
 function init(param) {
     let tmpParam = param.replace('?', '&');
-    // console.log(tmpParam);
     let searchUrl = `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${serviceKey}&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&contentTypeId=12${tmpParam}`;
     fetch(searchUrl, { method: "GET" })
         .then(res => res.json())
         .then(data => showTripList(data));
-
     let urlParams = new URL(location.href).searchParams;
     let areaCode = urlParams.get("areaCode");
     let gunGuUrl = `https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=hcKdeTIk7zLMkYbUAHEOcXhKRdrDIV4vUXgKVg31qeqB6eJaWfmjQ9SHI6OzGN3p7qI37SfxIbPrLPp15Iglug%3D%3D&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest&areaCode=${areaCode}&_type=json`;
@@ -47,13 +42,13 @@ function setSelectBox() {
 
 // 도시 코드 얻어서 selectBox목록 생성
 function makeOption(data) {
-    // console.log(data);
-    let areas = data.response.body.items.item;
+     console.log(data);
+//    let areas = data.Array
     let sel = document.getElementById("search-area");
-    areas.forEach(function (area) {
+    data.forEach(function (data) {
         let opt = document.createElement("option");
-        opt.setAttribute("value", area.code);
-        opt.appendChild(document.createTextNode(area.name));
+        opt.setAttribute("value", data.sidoCode);
+        opt.appendChild(document.createTextNode(data.sidoName));
         sel.appendChild(opt);
     });
 };
