@@ -10,7 +10,7 @@ public class ArticleDto {
 	private String email;
 	private int hit;
 	private Date registTime;
-	private int like;
+	private int heart;
 	public int getArticleNo() {
 		return articleNo;
 	}
@@ -53,16 +53,16 @@ public class ArticleDto {
 	public void setRegistTime(Date registTime) {
 		this.registTime = registTime;
 	}
-	public int getLike() {
-		return like;
+	public int getHeart() {
+		return heart;
 	}
-	public void setLike(int like) {
-		this.like = like;
+	public void setHeart(int like) {
+		this.heart = heart;
 	}
 	@Override
 	public String toString() {
 		return "BoardDto [articleNo=" + articleNo + ", title=" + title + ", content=" + content + ", articleCategory="
-				+ articleCategory + ", imgs=" + email + ", hit=" + hit + ", registTime=" + registTime + ", like=" + like
+				+ articleCategory + ", imgs=" + email + ", hit=" + hit + ", registTime=" + registTime + ", heart=" + heart
 				+ "]";
 	}
 	

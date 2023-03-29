@@ -1,7 +1,8 @@
 package com.ssafy.board.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -84,7 +85,10 @@ public class ArticleController extends HttpServlet {
 		articleDto.setContent(request.getParameter("content"));
 		articleDto.setArticleCategory("전체");
 		articleDto.setEmail(memberDto.getEmail());
-
+		// 현재 날짜 추가
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        Date date = sdf.parse("");
+//        articleDto.setRegistTime(today);
 		return null;
 	}
 }
