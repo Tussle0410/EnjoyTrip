@@ -133,7 +133,6 @@ document.getElementById("btn-search").addEventListener("click", () => {
     let sidoCode = document.getElementById("search-area").value;
     let gngunCode = document.getElementById("search-gungu").value;
     let contentCode = document.getElementById("search-content-id").value;
-     console.log(sidoCode + ", " + gngunCode + ", " + contentCode);
     if (sidoCode == 0) {
         alert("지역을 선택하세요");
         return;
@@ -160,16 +159,16 @@ function showTripList(data) {
     positions = new Array();
     let tbody = document.getElementById("trip-list");
     let tbodyContents = ``;
-    if (data == null) {
+    if (!data) {
         alert("데이터가 없습니다.");
         return;
     }
     data.forEach(data => {
         var position = {};
-        console.log(data);
+        console.log(data.firstImage);
         tbodyContents += `
         <tr>
-            <td><img src="${data.firstimage == "" ? './assets/img/etc/ssafy_logo.png' : data.firstImage}" class="tripListImage" /></td>
+            <td><img src="${data.firstImage ==  '' ? root + "/assets/img/etc/ssafy_logo.png" : data.firstImage}" class="tripListImage" /></td>
             <td>${data.title}</td>
             <td>${data.addr1} ${data.addr2}</td>
         </tr>`;

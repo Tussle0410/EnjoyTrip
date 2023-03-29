@@ -3,14 +3,12 @@ package com.ssafy.attraction.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.google.gson.Gson;
 import com.ssafy.attraction.model.dto.AttractionInfoDto;
 import com.ssafy.attraction.model.dto.GugunDto;
@@ -77,7 +75,6 @@ public class AttractionController extends HttpServlet{
 	private void sidoFind(HttpServletRequest req, HttpServletResponse resp) {
 		try {
 			List<SidoDto> sidos = attractionService.sidoFindByAll();
-			req.setAttribute("sidos", sidos);
 	        resp.setContentType("text/html;charset=utf-8");
 	        PrintWriter out = resp.getWriter();
 	        String jsonStr = gson.toJson(sidos);

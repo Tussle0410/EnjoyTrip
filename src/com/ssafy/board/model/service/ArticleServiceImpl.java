@@ -1,8 +1,6 @@
 package com.ssafy.board.model.service;
 
-import java.sql.SQLException;
 import java.util.List;
-
 import com.ssafy.board.model.ArticleDto;
 import com.ssafy.board.model.dao.ArticleDao;
 import com.ssafy.board.model.dao.ArticleDaoImpl;

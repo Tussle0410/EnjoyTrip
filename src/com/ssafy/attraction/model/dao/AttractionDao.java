@@ -10,5 +10,4 @@ public interface AttractionDao {
 	List<SidoDto> sidoFindByAll() throws SQLException;
 	List<GugunDto> gugunFindBySido(int sidoCode) throws SQLException;
 	List<AttractionInfoDto> attractionFindByCode(int sidoCode, int gugunCode, int contentCode) throws SQLException;
-	
 }
