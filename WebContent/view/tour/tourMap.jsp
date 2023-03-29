@@ -88,8 +88,6 @@
 
     <!-- Start Script -->
 	<script src="${root}/assets/js/kakaoMap.js"></script> 
-	<%--
-	
     <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd2a3494477a9c7735642bac8ac8bcbe&libraries=services,clusterer,drawing"
@@ -143,7 +141,6 @@
       // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
       // marker.setMap(null);
     </script>
-	 --%>
     <!-- End Script -->
   </body>
 </html>

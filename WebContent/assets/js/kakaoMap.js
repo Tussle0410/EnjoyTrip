@@ -1,6 +1,8 @@
 let serviceKey = "hcKdeTIk7zLMkYbUAHEOcXhKRdrDIV4vUXgKVg31qeqB6eJaWfmjQ9SHI6OzGN3p7qI37SfxIbPrLPp15Iglug%3D%3D";
-let sidoUrl ="http://localhost:8080/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/attraction?action=sidoFind";
-let gugunUrl ="http://localhost:8080/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/attraction?action=gugunFind&sidoCode=";
+let rootUrl = "http://localhost:8080/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/attraction?action=";
+let sidoUrl = rootUrl + "sidoFind";
+let gugunUrl = rootUrl + "gugunFind&sidoCode=";
+let attractionUrl = rootUrl + "attractionFind&sidoCode="
 
 window.onload = () => {
     // 지역별 여행지 페이지 들어갈 떄 selectBox 도시 목록 얻기
@@ -17,6 +19,54 @@ window.onload = () => {
     document.getElementById("search-area").addEventListener("change", function () {
     	makeGugun(this.value);
     });
+    
+    
+//    var container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
+//    var options = {
+//      //지도를 생성할 때 필요한 기본 옵션
+//      center: new kakao.maps.LatLng(37.5012767241426, 127.039600248343), //지도의 중심좌표.
+//      level: 13, //지도의 레벨(확대, 축소 정도)
+//    };
+//
+//    var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+//
+//    // 마커 이미지의 이미지 주소입니다
+//    var imageSrc = "./assets/img/marker/location.png";
+//
+//    if (positions.length > 0) {
+//      for (var i = 0; i < positions.length; i++) {
+//        // 마커 이미지의 이미지 크기 입니다
+//        var imageSize = new kakao.maps.Size(24, 35);
+//
+//        // 마커 이미지를 생성합니다
+//        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+//
+//        // 마커를 생성합니다
+//        var marker = new kakao.maps.Marker({
+//          map: map, // 마커를 표시할 지도
+//          position: positions[i].latlng, // 마커를 표시할 위치
+//          title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+//          image: markerImage, // 마커 이미지
+//        });
+//        maker.setMap(map);
+//      }
+//    }
+//
+//    // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+//    var mapTypeControl = new kakao.maps.MapTypeControl();
+//
+//    // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+//    // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+//    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+//
+//    // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+//    var zoomControl = new kakao.maps.ZoomControl();
+//    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+//
+//    // 마커가 지도 위에 표시되도록 설정합니다
+//
+//    // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+//    // marker.setMap(null);
 };
 
 function init(param) {
@@ -80,24 +130,24 @@ function makeGugunOption(data) {
 
 // 지역별 유형별 검색
 document.getElementById("btn-search").addEventListener("click", () => {
-    let areaCode = document.getElementById("search-area").value;
-    let sigunguCode = document.getElementById("search-gungu").value;
-    let category = document.getElementById("search-content-id").value;
-    // console.log(areaCode + ", " + sigunguCode + ", " + category);
-    if (areaCode == 0) {
+    let sidoCode = document.getElementById("search-area").value;
+    let gngunCode = document.getElementById("search-gungu").value;
+    let contentCode = document.getElementById("search-content-id").value;
+     console.log(sidoCode + ", " + gngunCode + ", " + contentCode);
+    if (sidoCode == 0) {
         alert("지역을 선택하세요");
         return;
     }
-    if (sigunguCode == 0) {
+    if (gngunCode == 0) {
         alert("군/구를 선택하세요");
         return;
     }
-    if (category == 0) {
+    if (contentCode == 0) {
         alert("관광지 유형을 선택하세요");
         return;
     }
 
-    let searchUrl = `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${serviceKey}&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&contentTypeId=${category}&areaCode=${areaCode}&sigunguCode=${sigunguCode}`;
+    let searchUrl = attractionUrl + sidoCode + "&gugunCode=" + gngunCode + "&contentCode=" + contentCode;
     fetch(searchUrl, { method: "GET" })
         .then(res => res.json())
         .then(data => showTripList(data));
@@ -108,24 +158,24 @@ document.getElementById("btn-search").addEventListener("click", () => {
 var positions = [];
 function showTripList(data) {
     positions = new Array();
-    // console.log(data)
     let tbody = document.getElementById("trip-list");
     let tbodyContents = ``;
-    if (data.response.body.totalCount == 0) {
+    if (data == null) {
         alert("데이터가 없습니다.");
         return;
     }
-    data.response.body.items.item.forEach(location => {
+    data.forEach(data => {
         var position = {};
+        console.log(data);
         tbodyContents += `
         <tr>
-            <td><img src="${location.firstimage == "" ? './assets/img/etc/ssafy_logo.png' : location.firstimage}" class="tripListImage" /></td>
-            <td>${location.title}</td>
-            <td>${location.addr1} ${location.addr2}</td>
+            <td><img src="${data.firstimage == "" ? './assets/img/etc/ssafy_logo.png' : data.firstImage}" class="tripListImage" /></td>
+            <td>${data.title}</td>
+            <td>${data.addr1} ${data.addr2}</td>
         </tr>`;
         position = {
-            title: location.title,
-            latlng: new kakao.maps.LatLng(location.mapy, location.mapx)
+            title: data.title,
+            latlng: new kakao.maps.LatLng(data.latitude, data.longitude)
         };
         positions.push(position);
     });
@@ -142,7 +192,7 @@ function showTripList(data) {
     var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
     // 마커 이미지의 이미지 주소입니다
-    var imageSrc = "./assets/img/marker/location.png";
+    var imageSrc = root + "/assets/img/marker/location.png";
 
     if (positions.length > 0) {
         for (var i = 0; i < positions.length; i++) {

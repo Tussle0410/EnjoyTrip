@@ -1,6 +1,5 @@
 package com.ssafy.attraction.model.dto;
 
-import java.text.DecimalFormat;
 
 public class AttractionInfoDto {
 	

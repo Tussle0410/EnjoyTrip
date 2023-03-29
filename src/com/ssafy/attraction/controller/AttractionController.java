@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.ssafy.attraction.model.dto.AttractionInfoDto;
 import com.ssafy.attraction.model.dto.GugunDto;
 import com.ssafy.attraction.model.dto.SidoDto;
 import com.ssafy.attraction.model.service.AttractionService;
@@ -39,10 +40,27 @@ public class AttractionController extends HttpServlet{
 			sidoFind(req, resp);
 		}else if("gugunFind".equals(action)) {
 			gugunFind(req, resp);
+		}else if("attractionFind".equals(action)) {
+			attractionFind(req, resp);
 		}
 	}
 	
 	
+	private void attractionFind(HttpServletRequest req, HttpServletResponse resp) {
+		try {
+			int sidoCode = Integer.parseInt(req.getParameter("sidoCode"));
+			int gugunCode = Integer.parseInt(req.getParameter("gugunCode"));
+			int contentCode = Integer.parseInt(req.getParameter("contentCode"));
+			List<AttractionInfoDto> attractions = attractionService.attractionFindByCode(sidoCode, gugunCode, contentCode);
+			resp.setContentType("text/html;charset=utf-8");
+			PrintWriter out = resp.getWriter();
+			String jsonStr = gson.toJson(attractions);
+			out.print(jsonStr);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void gugunFind(HttpServletRequest req, HttpServletResponse resp) {
 		try {
 			int sidoCode = Integer.parseInt(req.getParameter("sidoCode"));

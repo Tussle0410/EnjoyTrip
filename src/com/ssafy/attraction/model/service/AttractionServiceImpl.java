@@ -5,12 +5,9 @@ import java.util.List;
 
 import com.ssafy.attraction.model.dao.AttractionDao;
 import com.ssafy.attraction.model.dao.AttractionDaoImpl;
+import com.ssafy.attraction.model.dto.AttractionInfoDto;
 import com.ssafy.attraction.model.dto.GugunDto;
 import com.ssafy.attraction.model.dto.SidoDto;
-import com.ssafy.board.model.dao.ArticleDao;
-import com.ssafy.board.model.dao.ArticleDaoImpl;
-import com.ssafy.util.DBUtil;
-
 public class AttractionServiceImpl implements AttractionService{
 	
 	private AttractionDao attractionDao;
@@ -36,6 +33,11 @@ public class AttractionServiceImpl implements AttractionService{
 	@Override
 	public List<GugunDto> gugunFindBySido(int sidoCode) throws Exception {
 		return attractionDao.gugunFindBySido(sidoCode);
+	}
+
+	@Override
+	public List<AttractionInfoDto> attractionFindByCode(int sidoCode, int gugunCode, int contentCode) throws Exception {
+		return attractionDao.attractionFindByCode(sidoCode, gugunCode, contentCode);
 	}
 
 }

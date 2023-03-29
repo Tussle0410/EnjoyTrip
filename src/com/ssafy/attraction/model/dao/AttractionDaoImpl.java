@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ssafy.attraction.model.dto.AttractionInfoDto;
 import com.ssafy.attraction.model.dto.GugunDto;
 import com.ssafy.attraction.model.dto.SidoDto;
 import com.ssafy.board.model.ArticleDto;
@@ -75,6 +76,50 @@ public class AttractionDaoImpl implements AttractionDao {
 				gugunDto.setGugunName(rs.getString("gugun_name"));
 				gugunDto.setSidoCode(rs.getInt("sido_code"));
 				result.add(gugunDto);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new SQLException("시도를 불러오는 중에 오류가 발생하였습니다.");
+		}finally {
+			dbUtil.close(rs, pstmt, conn);
+		}
+		return result;
+	}
+
+	@Override
+	public List<AttractionInfoDto> attractionFindByCode(int sidoCode, int gugunCode, int contentCode)
+			throws SQLException {
+		List<AttractionInfoDto> result = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select * from attraction_info where sido_code= ? and gugun_code = ? and content_type_id = ?");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, sidoCode);
+			pstmt.setInt(2, gugunCode);
+			pstmt.setInt(3, contentCode);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				AttractionInfoDto attractionInfoDto = new AttractionInfoDto();
+				attractionInfoDto.setContentId(rs.getInt("content_id"));
+				attractionInfoDto.setContentTypeId(rs.getInt("content_type_id"));
+				attractionInfoDto.setTitle(rs.getString("title"));
+				attractionInfoDto.setAddr1(rs.getString("addr1"));
+				attractionInfoDto.setAddr2(rs.getString("addr2"));
+				attractionInfoDto.setZipcode(rs.getString("zipcode"));
+				attractionInfoDto.setTel(rs.getString("tel"));
+				attractionInfoDto.setFirstImage(rs.getString("first_image"));
+				attractionInfoDto.setFirstImage2(rs.getString("first_image2"));
+				attractionInfoDto.setReadCount(rs.getInt("readcount"));
+				attractionInfoDto.setSidoCode(rs.getInt("sido_code"));
+				attractionInfoDto.setGugunCode(rs.getInt("gugun_code"));
+				attractionInfoDto.setLatitude(rs.getDouble("latitude"));
+				attractionInfoDto.setLongitude(rs.getDouble("longitude"));
+				attractionInfoDto.setMlevel(rs.getString("mlevel"));
+				result.add(attractionInfoDto);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
