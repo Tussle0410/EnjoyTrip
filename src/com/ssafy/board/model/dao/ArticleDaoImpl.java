@@ -66,15 +66,14 @@ public class ArticleDaoImpl implements ArticleDao{
 			conn = dbUtil.getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append("insert into article(title, content, article_category, email, hit, registtime, heart) \n");
-			sql.append("values(?, ?, ?, ?, ?, ?, ?) \n");
+			sql.append("values(?, ?, ?, ?, ?, current_date(), ?) \n");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, articleDto.getTitle());
 			pstmt.setString(2, articleDto.getContent());
 			pstmt.setString(3, articleDto.getArticleCategory());
 			pstmt.setString(4, articleDto.getEmail());
 			pstmt.setInt(5, 0);
-//			pstmt.setDate(6, new java.sql.Date(new Date().getDate()));
-			pstmt.setInt(7, 0);
+			pstmt.setInt(6, 0);
 			pstmt.executeUpdate();
 		} finally {
 			dbUtil.close(pstmt, conn);
