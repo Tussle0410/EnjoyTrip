@@ -21,8 +21,13 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	public List<ArticleDto> BoardFindByAll() throws SQLException {
+	public List<ArticleDto> BoardFindByAll() throws Exception {
 		return articleDao.BoardFindByAll();
+	}
+
+	@Override
+	public void writeArticle(ArticleDto articleDto) throws Exception {
+		
 	}
 
 }

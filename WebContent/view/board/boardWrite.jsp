@@ -24,11 +24,13 @@
               <div class="card-body" style="height: 500px">
                 <div class="row col-md-12 justify-content-center" style="padding: 50px">
                   <div class="row col-md-12">
-                    <form action="" id="article-form" method="POST">
+                    <form id="article-form" method="POST" action="${root}/article">
+                    <input type="hidden" name="action" value="write" />
                       <div class="input-group mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-default">제목</span>
                         <input
                           type="text"
+                          name="title"
                           class="form-control"
                           aria-label="Sizing example input"
                           aria-describedby="inputGroup-sizing-default"
@@ -39,6 +41,7 @@
                         <span class="input-group-text" id="inputGroup-sizing-default">내용</span>
                         <textarea
                           class="form-control"
+                          name="content"
                           aria-label="Sizing example input"
                           aria-describedby="inputGroup-sizing-default"
                           name=""
@@ -56,7 +59,7 @@
                         </div>
                       </div>
                       <div style="margin-top: 1rem">
-                        <input id="article-write-btn" type="button" value="작성" />
+                        <input id="article-write-btn" type="submit" value="작성" />
                       </div>
                     </form>
                   </div>
@@ -66,7 +69,6 @@
           </div>
         </div>
       </div>
-      <div class="row"></div>
     </section>
     <!-- Close Content -->
 
