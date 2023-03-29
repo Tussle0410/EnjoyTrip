@@ -36,6 +36,12 @@ public class MemberController extends HttpServlet {
 		} else if("logout".equals(action)) {
 			path = logout(request, response);
 			redirect(request, response, path);
+		} else if("regist".equals(action)) {
+			path = regist(request, response);
+			redirect(request, response, path);
+		} else if("edit".equals(action)) {
+			path = edit(request, response);
+			forward(request, response, path);
 		}
 	}
 
@@ -82,5 +88,42 @@ public class MemberController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		return "";
+	}
+	
+	private String regist(HttpServletRequest request, HttpServletResponse response) {
+		MemberDto memberDto = new MemberDto();
+		memberDto.setEmail(request.getParameter("email"));
+		memberDto.setName(request.getParameter("name"));
+		memberDto.setPwd(request.getParameter("pwd"));
+		try {
+			memberService.regist(memberDto);
+			return "/view/member/login.jsp";
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("msg", "회원 등록 실패!!!");
+			return "/view/error/error.jsp";
+		}	
+	}
+	
+	private String edit(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		MemberDto userInfo = (MemberDto) session.getAttribute("userInfo");
+		if(userInfo == null) {
+			return "/view/member/login.jsp";
+		}
+		
+		MemberDto memberDto = new MemberDto();
+		memberDto.setEmail(request.getParameter("email"));
+		memberDto.setName(request.getParameter("name"));
+		memberDto.setPwd(userInfo.getPwd());
+		try {
+			memberService.edit(memberDto);
+			session.setAttribute("userInfo", memberDto);
+			return "/view/member/mypage.jsp";
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("msg", "회원정보 수정 실패!!!");
+			return "/view/error/error.jsp";
+		}
 	}
 }

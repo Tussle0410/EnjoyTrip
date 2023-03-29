@@ -27,6 +27,9 @@
 			alert("로그인이 필요한 페이지 입니다.");
 			location.href = "${root}/view/member/login.jsp";
 		</c:if>
+		<c:if test="${msg ne null}">
+			alert("${msg}");
+		</c:if>
 		var root = "${root}";
 	</script>
 </head>
