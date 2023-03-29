@@ -11,10 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ssafy.board.model.ArticleDto;
 import com.ssafy.board.model.service.ArticleService;
 import com.ssafy.board.model.service.ArticleServiceImpl;
+import com.ssafy.member.model.MemberDto;
 
 @WebServlet("/article")
 public class ArticleController extends HttpServlet {
@@ -35,7 +37,12 @@ public class ArticleController extends HttpServlet {
 		if("list".equals(action)) {
 			path = list(request, response);
 			forward(request, response, path);
-//			redirect(request, response, path);
+		} else if("view".equals(action)) {
+			path = view(request, response);
+			forward(request, response, path);
+		} else if("write".equals(action)) {
+			path = write(request, response);
+			forward(request, response, path);
 		}
 	}
 
@@ -63,5 +70,21 @@ public class ArticleController extends HttpServlet {
 			request.setAttribute("msg", "게시글 호출에 실패했습니다.");
 			return "/view/error/error.jsp";
 		}
+	}
+	
+	private String view(HttpServletRequest request, HttpServletResponse response) {
+		return "/view/board/boardView.jsp";
+	}
+	
+	private String write(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
+		ArticleDto articleDto = new ArticleDto();
+		articleDto.setTitle(request.getParameter("title"));
+		articleDto.setContent(request.getParameter("content"));
+		articleDto.setArticleCategory("전체");
+		articleDto.setEmail(memberDto.getEmail());
+
+		return null;
 	}
 }

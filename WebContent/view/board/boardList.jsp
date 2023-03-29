@@ -72,27 +72,33 @@
               </tr>
             </thead>
             <tbody>
-            <c:if test="${not empty articles}">
+            <c:choose>
+            <c:when test="${not empty articles}">
             	<c:forEach var="article" items="${articles}">
            		<tr>
                 <td>${article.articleNo }</td>
                 <td class="border-category" style="color: #ad7be9">${article.articleCategory }</td>
-                <td class="border-title">${article.content }</td>
+                <td class="border-title"><a href="${root}/article?action=view&articleNo=${article.articleNo}">${article.content}</a></td>
                	<td>${article.email}</td>
                 <td>${article.registTime }</td>
                 <td>${article.hit }</td>
                 <td>${article.like }</td>
               </tr>
             </c:forEach>
-            </c:if>
+            </c:when>
+            <c:otherwise>
+            	<tr>
+            		<td colspan="7">등록된 게시글이 없습니다.</td>
+            	</tr>
+            </c:otherwise>
+            </c:choose>
             </tbody>
           </table>
           <div id="board-article-write-div">
-            <button id="article-write-mvbtn" class="btn btn-outline-warning btn-lg">글쓰기</button>
+            <button onClick="location.href='${root}/view/board/boardWrite.jsp';" id="article-write-mvbtn" class="btn btn-outline-warning btn-lg">글쓰기</button>
           </div>
         </div>
       </div>
-      <div class="row"></div>
     </section>
     <!-- End Categories of The Month -->
 

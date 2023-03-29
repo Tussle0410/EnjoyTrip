@@ -49,13 +49,15 @@ public class ArticleDaoImpl implements ArticleDao{
 				articleDto.setLike(rs.getInt("like"));
 				result.add(articleDto);
 			}
-		}catch(Exception e){
-			e.printStackTrace();
-			throw new SQLException("게시글을 불러오는 중에 오류가 발생하였습니다.");
-		}finally {
+		} finally {
 			dbUtil.close(rs, pstmt, conn);
 		}
 		return result;
+	}
+
+	@Override
+	public void writeArticle(ArticleDto articleDto) throws SQLException {
+		
 	}
 
 }

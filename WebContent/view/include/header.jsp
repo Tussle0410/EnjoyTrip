@@ -21,12 +21,14 @@
     <!-- Slick -->
     <link rel="stylesheet" type="text/css" href="${root}/assets/css/slick.min.css" />
     <link rel="stylesheet" type="text/css" href="${root}/assets/css/slick-theme.css" />
-    <c:if test="${userInfo eq null}" >
-    	<script>
-    		alert("로그인이 필요한 페이지 입니다.");
-    		location.href = "${root}/view/member/login.jsp";
-    	</script>
-	</c:if>
+	
+	<script>
+		<c:if test="${userInfo eq null}" >
+			alert("로그인이 필요한 페이지 입니다.");
+			location.href = "${root}/view/member/login.jsp";
+		</c:if>
+		var root = "${root}";
+	</script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light shadow">

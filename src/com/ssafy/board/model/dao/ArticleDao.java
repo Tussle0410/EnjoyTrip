@@ -5,6 +5,7 @@ import java.util.List;
 import com.ssafy.board.model.ArticleDto;
 
 public interface ArticleDao {
+	
 	List<ArticleDto> BoardFindByAll() throws SQLException;
-
+	void writeArticle(ArticleDto articleDto) throws SQLException;
 }
