@@ -1,9 +1,11 @@
 package com.ssafy.board.model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,8 @@ public class ArticleDaoImpl implements ArticleDao{
 		try {
 			conn = dbUtil.getConnection();
 			StringBuilder sql = new StringBuilder();
-			sql.append("select * from article");
+			sql.append("select article_no, title, content, article_category, email, hit, registtime, heart \n");
+			sql.append("from article");
 			pstmt = conn.prepareStatement(sql.toString());
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -46,7 +49,7 @@ public class ArticleDaoImpl implements ArticleDao{
 				articleDto.setEmail(rs.getString("email"));
 				articleDto.setHit(rs.getInt("hit"));
 				articleDto.setRegistTime(rs.getDate("registtime"));
-				articleDto.setLike(rs.getInt("like"));
+				articleDto.setHeart(rs.getInt("heart"));
 				result.add(articleDto);
 			}
 		} finally {
@@ -57,7 +60,25 @@ public class ArticleDaoImpl implements ArticleDao{
 
 	@Override
 	public void writeArticle(ArticleDto articleDto) throws SQLException {
-		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("insert into article(title, content, article_category, email, hit, registtime, heart) \n");
+			sql.append("values(?, ?, ?, ?, ?, ?, ?) \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, articleDto.getTitle());
+			pstmt.setString(2, articleDto.getContent());
+			pstmt.setString(3, articleDto.getArticleCategory());
+			pstmt.setString(4, articleDto.getEmail());
+			pstmt.setInt(5, 0);
+//			pstmt.setDate(6, new java.sql.Date(new Date().getDate()));
+			pstmt.setInt(7, 0);
+			pstmt.executeUpdate();
+		} finally {
+			dbUtil.close(pstmt, conn);
+		}
 	}
 
 }

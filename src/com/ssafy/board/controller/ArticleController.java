@@ -1,7 +1,8 @@
 package com.ssafy.board.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -65,7 +66,7 @@ public class ArticleController extends HttpServlet {
 			List<ArticleDto> list = articleService.BoardFindByAll();
 			request.setAttribute("articles", list);
 			return "/view/board/boardList.jsp";
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("msg", "게시글 호출에 실패했습니다.");
 			return "/view/error/error.jsp";
@@ -84,7 +85,10 @@ public class ArticleController extends HttpServlet {
 		articleDto.setContent(request.getParameter("content"));
 		articleDto.setArticleCategory("전체");
 		articleDto.setEmail(memberDto.getEmail());
-
+		// 현재 날짜 추가
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        Date date = sdf.parse("");
+//        articleDto.setRegistTime(today);
 		return null;
 	}
 }

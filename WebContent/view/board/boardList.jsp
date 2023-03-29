@@ -82,7 +82,7 @@
                	<td>${article.email}</td>
                 <td>${article.registTime }</td>
                 <td>${article.hit }</td>
-                <td>${article.like }</td>
+                <td>${article.heart }</td>
               </tr>
             </c:forEach>
             </c:when>
