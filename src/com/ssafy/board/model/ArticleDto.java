@@ -56,7 +56,7 @@ public class ArticleDto {
 	public int getHeart() {
 		return heart;
 	}
-	public void setHeart(int like) {
+	public void setHeart(int heart) {
 		this.heart = heart;
 	}
 	@Override

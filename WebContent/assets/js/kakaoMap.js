@@ -165,7 +165,6 @@ function showTripList(data) {
     }
     data.forEach(data => {
         var position = {};
-        console.log(data.firstImage);
         tbodyContents += `
         <tr>
             <td><img src="${data.firstImage ==  '' ? root + "/assets/img/etc/ssafy_logo.png" : data.firstImage}" class="tripListImage" /></td>

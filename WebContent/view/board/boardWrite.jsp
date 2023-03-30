@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,7 +9,7 @@
 
   <body>
     <!-- Header -->
-  	<%@ include file="/view/include/header.jsp" %>
+    <%@ include file="/view/include/header.jsp" %>
     <!-- Close Header -->
 
     <!-- Open Content -->
@@ -21,11 +20,18 @@
           <hr id="board-title-bottomline" />
           <div class="col-lg--12 mt-5">
             <div class="card" style="width: 75%; margin: 0px auto">
-              <div class="card-body" style="height: 500px">
+              <div class="card-body" style="height: 600px">
                 <div class="row col-md-12 justify-content-center" style="padding: 50px">
                   <div class="row col-md-12">
                     <form id="article-form" method="POST" action="${root}/article">
-                    <input type="hidden" name="action" value="write" />
+                      <input type="hidden" name="action" value="write" />
+                      <div id="board-write-category-selectbox" style="display: flex; margin: 1rem 0">
+                        <select id="board-write-category-select" style="width: 100px; text-align: center; padding: 3px">
+                          <option value="0" selected="selected">질문</option>
+                          <option value="1">후기</option>
+                          <option value="2">추천</option>
+                        </select>
+                      </div>
                       <div class="input-group mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-default">제목</span>
                         <input
@@ -73,7 +79,7 @@
     <!-- Close Content -->
 
     <!-- Start Footer -->
-	<%@ include file="/view/include/footer.jsp" %>
+    <%@ include file="/view/include/footer.jsp" %>
     <!-- End Footer -->
 
     <!-- Start Script -->
@@ -81,4 +87,3 @@
     <!-- End Script -->
   </body>
 </html>
-    
