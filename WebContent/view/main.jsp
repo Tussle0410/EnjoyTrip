@@ -89,7 +89,7 @@
           />
           <h5 class="text-center mt-3 mb-3">서울</h5>
           <p class="text-center">
-            <a href="${root}/view/tour/tourMap.jsp?areaCode=1&sigunguCode=1" class="btn btn-success">살펴보기</a>
+            <a href="${root}/view/tour/tourMap.jsp?areaCode=1&sigunguCode=1&contentCode=12&pageNo=1" class="btn btn-success">살펴보기</a>
           </p>
         </div>
         <div class="col-12 col-md-4 p-5 mt-3">
@@ -100,7 +100,7 @@
           /></a>
           <h2 class="h5 text-center mt-3 mb-3">부산</h2>
           <p class="text-center">
-            <a href="${root}/view/tour/tourMap.jsp?areaCode=6&sigunguCode=16" class="btn btn-success">살펴보기</a>
+            <a href="${root}/view/tour/tourMap.jsp?areaCode=6&sigunguCode=16&contentCode=12&pageNo=1" class="btn btn-success">살펴보기</a>
           </p>
         </div>
         <div class="col-12 col-md-4 p-5 mt-3">
@@ -111,7 +111,7 @@
           /></a>
           <h2 class="h5 text-center mt-3 mb-3">제주도</h2>
           <p class="text-center">
-            <a href="${root}/view/tour/tourMap.jsp?areaCode=39&sigunguCode=4" class="btn btn-success">살펴보기</a>
+            <a href="${root}/view/tour/tourMap.jsp?areaCode=39&sigunguCode=4&contentCode=12&pageNo=1" class="btn btn-success">살펴보기</a>
           </p>
         </div>
       </div>
