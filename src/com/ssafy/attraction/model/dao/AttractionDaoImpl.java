@@ -96,7 +96,9 @@ public class AttractionDaoImpl implements AttractionDao {
 		try {
 			conn = dbUtil.getConnection();
 			StringBuilder sql = new StringBuilder();
-			sql.append("select * from attraction_info where sido_code= ? and gugun_code = ? and content_type_id = ?");
+			sql.append("select * from attraction_info \n");
+			sql.append("where sido_code= ? and gugun_code = ? and content_type_id = ? \n");
+			sql.append("limit 1, 6");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, sidoCode);
 			pstmt.setInt(2, gugunCode);

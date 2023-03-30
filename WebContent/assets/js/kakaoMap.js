@@ -6,93 +6,30 @@ let attractionUrl = rootUrl + "attractionFind&sidoCode="
 
 window.onload = () => {
     // 지역별 여행지 페이지 들어갈 떄 selectBox 도시 목록 얻기
-    fetch(sidoUrl, { method: "GET"})
+    fetch(sidoUrl, { method: "GET" })
         .then((response) => response.json())
         .then((data) => makeOption(data));
 
     // 주소값에 파라미터 받을 경우에 초기화 실행
     let param = window.location.search;
     if (param) {
-        init(param);
-        setSelectBox();
+        let urlParams = new URL(location.href).searchParams;
+        let areaCode = urlParams.get("areaCode");
+        let sigunguCode = urlParams.get("sigunguCode");
+        let contentCode = urlParams.get("contentCode");
+        let pageNo = urlParams.get("pageNo");
+        makeGugun(areaCode);
+        let sidoSelect = document.getElementById("search-area").options["selected"];
+        console.log(sidoSelect);
+        let searchUrl = attractionUrl + areaCode + "&gugunCode=" + sigunguCode + "&contentCode=" + contentCode + "&pageNo=" + pageNo;
+        fetch(searchUrl, { method: "GET" })
+            .then(res => res.json())
+            .then(data => showTripList(data));
     }
     document.getElementById("search-area").addEventListener("change", function () {
-    	makeGugun(this.value);
+        makeGugun(this.value);
     });
-    
-    
-//    var container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
-//    var options = {
-//      //지도를 생성할 때 필요한 기본 옵션
-//      center: new kakao.maps.LatLng(37.5012767241426, 127.039600248343), //지도의 중심좌표.
-//      level: 13, //지도의 레벨(확대, 축소 정도)
-//    };
-//
-//    var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-//
-//    // 마커 이미지의 이미지 주소입니다
-//    var imageSrc = "./assets/img/marker/location.png";
-//
-//    if (positions.length > 0) {
-//      for (var i = 0; i < positions.length; i++) {
-//        // 마커 이미지의 이미지 크기 입니다
-//        var imageSize = new kakao.maps.Size(24, 35);
-//
-//        // 마커 이미지를 생성합니다
-//        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-//
-//        // 마커를 생성합니다
-//        var marker = new kakao.maps.Marker({
-//          map: map, // 마커를 표시할 지도
-//          position: positions[i].latlng, // 마커를 표시할 위치
-//          title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-//          image: markerImage, // 마커 이미지
-//        });
-//        maker.setMap(map);
-//      }
-//    }
-//
-//    // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
-//    var mapTypeControl = new kakao.maps.MapTypeControl();
-//
-//    // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
-//    // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-//    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-//
-//    // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-//    var zoomControl = new kakao.maps.ZoomControl();
-//    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-//
-//    // 마커가 지도 위에 표시되도록 설정합니다
-//
-//    // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
-//    // marker.setMap(null);
 };
-
-function init(param) {
-    let tmpParam = param.replace('?', '&');
-    let searchUrl = `https://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=${serviceKey}&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&contentTypeId=12${tmpParam}`;
-    fetch(searchUrl, { method: "GET" })
-        .then(res => res.json())
-        .then(data => showTripList(data));
-    let urlParams = new URL(location.href).searchParams;
-    let areaCode = urlParams.get("areaCode");
-    let gunGuUrl = `https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=hcKdeTIk7zLMkYbUAHEOcXhKRdrDIV4vUXgKVg31qeqB6eJaWfmjQ9SHI6OzGN3p7qI37SfxIbPrLPp15Iglug%3D%3D&numOfRows=100&pageNo=1&MobileOS=ETC&MobileApp=AppTest&areaCode=${areaCode}&_type=json`;
-    fetch(gunGuUrl, { method: "GET" })
-        .then((response) => response.json())
-        .then((data) => makeGunGuOption(data));
-};
-
-function setSelectBox() {
-    let urlParams = new URL(location.href).searchParams;
-    let areaCode = urlParams.get("areaCode");
-    let sigunguCode = urlParams.get("sigunguCode");
-    document.getElementById("search-area").value = areaCode;
-    document.getElementById("search-gungu").value = sigunguCode;
-    document.getElementById("search-content-id").value = 12;    // default: 관광지
-}
-
-
 
 // 도시 코드 얻어서 selectBox목록 생성
 function makeOption(data) {
@@ -165,10 +102,9 @@ function showTripList(data) {
     }
     data.forEach(data => {
         var position = {};
-        console.log(data.firstImage);
         tbodyContents += `
         <tr>
-            <td><img src="${data.firstImage ==  '' ? root + "/assets/img/etc/ssafy_logo.png" : data.firstImage}" class="tripListImage" /></td>
+            <td><img src="${data.firstImage == '' ? root + "/assets/img/etc/ssafy_logo.png" : data.firstImage}" class="tripListImage" /></td>
             <td>${data.title}</td>
             <td>${data.addr1} ${data.addr2}</td>
         </tr>`;
