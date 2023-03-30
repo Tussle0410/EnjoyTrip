@@ -1,10 +1,7 @@
 package com.ssafy.board.controller;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -13,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.ssafy.board.model.ArticleDto;
 import com.ssafy.board.model.service.ArticleService;
 import com.ssafy.board.model.service.ArticleServiceImpl;
@@ -43,7 +39,7 @@ public class ArticleController extends HttpServlet {
 			forward(request, response, path);
 		} else if("write".equals(action)) {
 			path = write(request, response);
-			forward(request, response, path);
+			redirect(request, response, path);
 		}
 	}
 
@@ -85,10 +81,14 @@ public class ArticleController extends HttpServlet {
 		articleDto.setContent(request.getParameter("content"));
 		articleDto.setArticleCategory("전체");
 		articleDto.setEmail(memberDto.getEmail());
-		// 현재 날짜 추가
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//        Date date = sdf.parse("");
-//        articleDto.setRegistTime(today);
-		return null;
+		
+		try {
+			articleService.writeArticle(articleDto);
+			return "/article?action=list";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "/view/error/error.jsp";
+		}
+		
 	}
 }

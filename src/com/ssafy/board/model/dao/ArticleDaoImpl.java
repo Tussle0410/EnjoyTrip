@@ -66,19 +66,53 @@ public class ArticleDaoImpl implements ArticleDao{
 			conn = dbUtil.getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append("insert into article(title, content, article_category, email, hit, registtime, heart) \n");
-			sql.append("values(?, ?, ?, ?, ?, ?, ?) \n");
+			sql.append("values(?, ?, ?, ?, ?, current_date(), ?) \n");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, articleDto.getTitle());
 			pstmt.setString(2, articleDto.getContent());
 			pstmt.setString(3, articleDto.getArticleCategory());
 			pstmt.setString(4, articleDto.getEmail());
 			pstmt.setInt(5, 0);
-//			pstmt.setDate(6, new java.sql.Date(new Date().getDate()));
-			pstmt.setInt(7, 0);
+			pstmt.setInt(6, 0);
 			pstmt.executeUpdate();
 		} finally {
 			dbUtil.close(pstmt, conn);
 		}
+	}
+
+	@Override
+	public ArticleDto ArticleFindByNo(int article_no) throws SQLException {
+		ArticleDto result = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select article_no, title, content, article_category, email, hit, registtime, heart \n");
+			sql.append("from article where article_no = ?");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, article_no);
+			
+			rs = pstmt.executeQuery();
+			rs.next();
+			result = new ArticleDto();
+			result.setArticleNo(rs.getInt("article_no"));
+			result.setTitle(rs.getString("title"));
+			result.setContent(rs.getString("content"));
+			result.setArticleCategory(rs.getString("article_category"));
+			result.setEmail(rs.getString("email"));
+			result.setHit(rs.getInt("hit"));
+			result.setRegistTime(rs.getDate("registtime"));
+			result.setHeart(rs.getInt("heart"));
+			return result;
+		} catch(Exception e){
+			e.printStackTrace();
+			throw new SQLException("게시글 정보를 불러오는 중에 에러가 발생하였습니다.");
+		}finally {
+			dbUtil.close(rs, pstmt, conn);
+		}
+
 	}
 
 }

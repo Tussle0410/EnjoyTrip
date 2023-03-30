@@ -78,7 +78,7 @@
            		<tr>
                 <td>${article.articleNo }</td>
                 <td class="border-category" style="color: #ad7be9">${article.articleCategory }</td>
-                <td class="border-title"><a href="${root}/article?action=view&articleNo=${article.articleNo}">${article.content}</a></td>
+                <td class="border-title"><a href="${root}/article?action=view&articleNo=${article.articleNo}" style="text-decoration: none; color: black;font-weight: bold !important;">${article.content}</a></td>
                	<td>${article.email}</td>
                 <td>${article.registTime }</td>
                 <td>${article.hit }</td>

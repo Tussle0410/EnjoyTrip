@@ -23,4 +23,14 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.login(member);
 	}
 
+	@Override
+	public void regist(MemberDto member) throws Exception {
+		memberDao.regist(member);
+	}
+
+	@Override
+	public void edit(MemberDto member) throws Exception {
+		memberDao.edit(member);
+	}
+
 }

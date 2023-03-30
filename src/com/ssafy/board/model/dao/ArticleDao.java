@@ -8,4 +8,5 @@ public interface ArticleDao {
 	
 	List<ArticleDto> BoardFindByAll() throws SQLException;
 	void writeArticle(ArticleDto articleDto) throws SQLException;
+	ArticleDto ArticleFindByNo(int article_no) throws SQLException;
 }

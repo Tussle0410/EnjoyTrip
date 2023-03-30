@@ -25,7 +25,7 @@ public class ArticleServiceImpl implements ArticleService{
 
 	@Override
 	public void writeArticle(ArticleDto articleDto) throws Exception {
-		
+		articleDao.writeArticle(articleDto);
 	}
 
 }
