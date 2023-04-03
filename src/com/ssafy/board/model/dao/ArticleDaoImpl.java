@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ssafy.board.model.ArticleDto;
+import com.ssafy.board.model.ArticleReviewDto;
 import com.ssafy.util.DBUtil;
 
 public class ArticleDaoImpl implements ArticleDao{
@@ -93,7 +94,6 @@ public class ArticleDaoImpl implements ArticleDao{
 			sql.append("from article where article_no = ?");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, article_no);
-			
 			rs = pstmt.executeQuery();
 			rs.next();
 			result = new ArticleDto();
@@ -113,6 +113,35 @@ public class ArticleDaoImpl implements ArticleDao{
 			dbUtil.close(rs, pstmt, conn);
 		}
 
+	}
+
+	@Override
+	public List<ArticleReviewDto> ReviewFindByNo(int article_no) throws SQLException {
+		List<ArticleReviewDto> result = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select review_no, article_no, content, registtime, email \n");
+			sql.append("from article_review where article_no = ?");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, article_no);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ArticleReviewDto articleReviewDto = new ArticleReviewDto();
+				articleReviewDto.setReviewNo(rs.getInt("review_no"));
+				articleReviewDto.setArticleNo(rs.getInt("article_no"));
+				articleReviewDto.setContent(rs.getString("content"));
+				articleReviewDto.setRegisttime(rs.getDate("registtime"));
+				articleReviewDto.setEmail(rs.getString("email"));
+				result.add(articleReviewDto);
+			}
+		} finally {
+			dbUtil.close(rs, pstmt, conn);
+		}
+		return result;
 	}
 
 }

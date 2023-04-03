@@ -1,6 +1,7 @@
 package com.ssafy.board.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class ArticleDto {
 	private int articleNo;

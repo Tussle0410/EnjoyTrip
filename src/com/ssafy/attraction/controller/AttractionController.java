@@ -3,21 +3,17 @@ package com.ssafy.attraction.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import com.google.gson.Gson;
 import com.ssafy.attraction.model.dto.AttractionInfoDto;
 import com.ssafy.attraction.model.dto.GugunDto;
 import com.ssafy.attraction.model.dto.SidoDto;
 import com.ssafy.attraction.model.service.AttractionService;
 import com.ssafy.attraction.model.service.AttractionServiceImpl;
-import com.ssafy.member.model.MemberDto;
 
 @WebServlet("/attraction")
 public class AttractionController extends HttpServlet{
@@ -47,8 +43,6 @@ public class AttractionController extends HttpServlet{
 	
 	
 	private void attractionFind(HttpServletRequest req, HttpServletResponse resp) {
-		HttpSession session = req.getSession();
-		MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
 		try {
 			int sidoCode = Integer.parseInt(req.getParameter("sidoCode"));
 			int gugunCode = Integer.parseInt(req.getParameter("gugunCode"));
@@ -64,8 +58,6 @@ public class AttractionController extends HttpServlet{
 	}
 
 	private void gugunFind(HttpServletRequest req, HttpServletResponse resp) {
-		HttpSession session = req.getSession();
-		MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
 		try {
 			int sidoCode = Integer.parseInt(req.getParameter("sidoCode"));
 			List<GugunDto> guguns = attractionService.gugunFindBySido(sidoCode);
@@ -79,7 +71,6 @@ public class AttractionController extends HttpServlet{
 	}
 
 	private void sidoFind(HttpServletRequest req, HttpServletResponse resp) {
-		HttpSession session = req.getSession();
 		try {
 			List<SidoDto> sidos = attractionService.sidoFindByAll();
 	        resp.setContentType("text/html;charset=utf-8");
