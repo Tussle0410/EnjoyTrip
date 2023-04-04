@@ -10,4 +10,6 @@ public interface ArticleService {
 	void writeArticle(ArticleDto articleDto) throws Exception;
 	ArticleDto ArticleFindByNo(int article_no) throws Exception;
 	List<ArticleReviewDto> ReviewFindByNo(int article_no) throws Exception;
+	void plusArticleHit(int article_no) throws Exception;
+	void writeReview(ArticleReviewDto reviewDto) throws Exception;
 }

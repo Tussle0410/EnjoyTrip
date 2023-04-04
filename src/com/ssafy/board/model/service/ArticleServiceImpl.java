@@ -39,4 +39,16 @@ public class ArticleServiceImpl implements ArticleService{
 		return articleDao.ReviewFindByNo(article_no);
 	}
 
+	@Override
+	public void plusArticleHit(int article_no) throws Exception {
+		articleDao.plusArticleHit(article_no);
+		
+	}
+
+	@Override
+	public void writeReview(ArticleReviewDto reviewDto) throws Exception {
+		articleDao.writeReview(reviewDto);
+		
+	}
+
 }

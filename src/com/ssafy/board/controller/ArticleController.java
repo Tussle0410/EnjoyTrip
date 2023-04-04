@@ -1,8 +1,11 @@
 package com.ssafy.board.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -35,7 +38,19 @@ public class ArticleController extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		BufferedReader br = request.getReader();
+		StringBuilder sb = new StringBuilder();
+		sb.append(br.readLine());
 		String action = request.getParameter("action");
+		if(!sb.toString().equals("null")) {
+			Map<String, Object> map = gson.fromJson(sb.toString(), Map.class);
+			action = (String) map.get("action");
+			if("writeReview".equals(action)) {
+				writeReview(request, response, map);
+				return;
+			}
+		}
+
 		String path = "";
 		
 		if("list".equals(action)) {
@@ -50,6 +65,22 @@ public class ArticleController extends HttpServlet {
 		} else if("getReview".equals(action)) {
 			getReview(request, response);
 		}
+	}
+
+	private void writeReview(HttpServletRequest request, HttpServletResponse response, Map<String, Object> map) {
+		HttpSession session = request.getSession();
+		MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
+		ArticleReviewDto articleReviewDto = new ArticleReviewDto();
+		articleReviewDto.setArticleNo(Integer.parseInt((String)map.get("articleNo")));
+		articleReviewDto.setContent((String)map.get("content"));
+		articleReviewDto.setEmail(memberDto.getEmail());
+		try {
+			articleService.writeReview(articleReviewDto);
+			response.setContentType("html/text;charset=utf-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void getReview(HttpServletRequest request, HttpServletResponse response){
@@ -96,7 +127,8 @@ public class ArticleController extends HttpServlet {
 		try {
 			int article_no = Integer.parseInt(request.getParameter("articleNo"));
 			ArticleDto articleDto = articleService.ArticleFindByNo(article_no);
-			System.out.println(articleDto);
+			articleService.plusArticleHit(article_no);
+			articleDto.plusHit();
 			request.setAttribute("articleInfo", articleDto);
 		}catch(Exception e) {
 			e.printStackTrace();

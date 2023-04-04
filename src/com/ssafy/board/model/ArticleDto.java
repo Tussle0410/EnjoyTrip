@@ -60,6 +60,9 @@ public class ArticleDto {
 	public void setHeart(int heart) {
 		this.heart = heart;
 	}
+	public void plusHit() {
+		this.hit += 1;
+	}
 	@Override
 	public String toString() {
 		return "BoardDto [articleNo=" + articleNo + ", title=" + title + ", content=" + content + ", articleCategory="

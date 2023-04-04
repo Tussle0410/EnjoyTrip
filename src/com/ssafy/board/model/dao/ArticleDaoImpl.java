@@ -144,4 +144,76 @@ public class ArticleDaoImpl implements ArticleDao{
 		return result;
 	}
 
+	@Override
+	public void plusArticleHit(int article_no) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("update article set hit = hit+1 \n");
+			sql.append("where article_no = ? \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, article_no);
+			pstmt.executeUpdate();
+		} finally {
+			dbUtil.close(pstmt, conn);
+		}
+	}
+
+	@Override
+	public void writeReview(ArticleReviewDto reviewDto) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("insert into article_review(article_no, content, email, registtime) \n");
+			sql.append("values(?, ?, ?, current_date()) \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, reviewDto.getArticleNo());
+			pstmt.setString(2, reviewDto.getContent());
+			pstmt.setString(3, reviewDto.getEmail());
+			pstmt.executeUpdate();
+		} finally {
+			dbUtil.close(pstmt, conn);
+		}
+	}
+
+	@Override
+	public void heartUp(int article_no, String email) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("insert into article_heart(article_no, email) value(?, ?) \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, article_no);
+			pstmt.setString(2, email);
+			pstmt.executeUpdate();
+		} finally {
+			dbUtil.close(pstmt, conn);
+		}
+		
+	}
+
+	@Override
+	public void headrDown(int article_no, String email) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("delete from article_heart \n");
+			sql.append("where article_no = ? and email = ? \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, article_no);
+			pstmt.executeUpdate();
+		} finally {
+			dbUtil.close(pstmt, conn);
+		}
+		
+	}
+
 }
