@@ -11,11 +11,11 @@ window.onload = function () {
         content = `
         <div class="row justify-content-center">
         <a href="#" class="row col-md-5">
-          <img src="./assets/img/accommodation/busan_comodo_hotel.jpg" alt="" />
+          <img src="${root}/assets/img/accom/busan_comodo_hotel.jpg" alt="" />
         </a>
         <div class="row col-md-1"><p class="vs-text">VS</p></div>
         <a href="#" class="row col-md-5">
-          <img src="./assets/img/accommodation/busan_hotel1_hotel.jpg" alt="" />
+          <img src="${root}/assets/img/accom/busan_hotel1_hotel.jpg" alt="" />
         </a>
       </div>
         `;
@@ -24,11 +24,11 @@ window.onload = function () {
         content = `
         <div class="row justify-content-center">
         <a href="#" class="row col-md-5">
-          <img src="./assets/img/restaurant/res1.png" alt="" />
+          <img src="${root}/assets/img/restaurant/res1.png" alt="" />
         </a>
         <div class="row col-md-1"><p class="vs-text">VS</p></div>
         <a href="#" class="row col-md-5">
-          <img src="./assets/img/restaurant/res2.png" alt="" />
+          <img src="${root}/assets/img/restaurant/res2.png" alt="" />
         </a>
       </div>
         `;
@@ -37,11 +37,11 @@ window.onload = function () {
         content = `
         <div class="row justify-content-center">
         <a href="#" class="row col-md-5">
-          <img src="./assets/img/festival/fes1.png" alt="" />
+          <img src="${root}/assets/img/festival/fes1.png" alt="" />
         </a>
         <div class="row col-md-1"><p class="vs-text">VS</p></div>
         <a href="#" class="row col-md-5">
-          <img src="./assets/img/festival/fes2.png" alt="" />
+          <img src="${root}/assets/img/festival/fes2.png" alt="" />
         </a>
       </div>
         `;

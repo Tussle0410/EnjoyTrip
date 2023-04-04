@@ -213,7 +213,5 @@ public class ArticleDaoImpl implements ArticleDao{
 		} finally {
 			dbUtil.close(pstmt, conn);
 		}
-		
 	}
-
 }

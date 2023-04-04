@@ -32,11 +32,11 @@
               <div class="card-body row col-md-12" id="main-view">
                 <div class="row justify-content-center">
                   <a href="#" class="row col-md-5">
-                    <img src="${root}/assets/img/accommodation/busan_comodo_hotel.jpg" alt="" />
+                    <img src="${root}/assets/img/accom/busan_comodo_hotel.jpg" alt="" />
                   </a>
                   <div class="row col-md-1"><p class="vs-text">VS</p></div>
                   <a href="#" class="row col-md-5">
-                    <img src="${root}/assets/img/accommodation/busan_hotel1_hotel.jpg" alt="" />
+                    <img src="${root}/assets/img/accom/busan_hotel1_hotel.jpg" alt="" />
                   </a>
                 </div>
               </div>
@@ -44,7 +44,6 @@
           </div>
         </div>
       </div>
-      <div class="row"></div>
     </section>
     <!-- End Categories of The Month -->
 
