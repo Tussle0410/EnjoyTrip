@@ -51,4 +51,25 @@ public class ArticleServiceImpl implements ArticleService{
 		
 	}
 
+	@Override
+	public List<ArticleDto> BoardFindByCategory(String category) throws Exception {
+		return articleDao.BoardFindByCategory(category);
+	}
+
+	@Override
+	public void deleteArticle(int article_no) throws Exception {
+		articleDao.deleteArticle(article_no);
+	}
+
+	@Override
+	public void heartUp(int article_no, String email) throws Exception {
+		articleDao.heartUp(article_no, email);
+		
+	}
+
+	@Override
+	public void headrDown(int article_no, String email) throws Exception {
+		articleDao.headrDown(article_no, email);
+	}
+
 }

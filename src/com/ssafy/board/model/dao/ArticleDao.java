@@ -15,4 +15,6 @@ public interface ArticleDao {
 	void writeReview(ArticleReviewDto reviewDto) throws SQLException;
 	void heartUp(int article_no, String email) throws SQLException;
 	void headrDown(int article_no, String email) throws SQLException;
+	List<ArticleDto> BoardFindByCategory(String category) throws SQLException;
+	void deleteArticle(int article_no) throws SQLException;
 }

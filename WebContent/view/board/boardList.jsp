@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,7 +9,7 @@
 
   <body>
     <!-- Header -->
-   <%@ include file="/view/include/header.jsp" %>
+    <%@ include file="/view/include/header.jsp" %>
     <!-- Close Header -->
 
     <!-- Start Banner Hero -->
@@ -71,31 +70,45 @@
                 <th>좋아요</th>
               </tr>
             </thead>
-            <tbody>
-            <c:choose>
-            <c:when test="${not empty articles}">
-            	<c:forEach var="article" items="${articles}">
-           		<tr>
-                <td>${article.articleNo }</td>
-                <td class="border-category" style="color: #ad7be9">${article.articleCategory }</td>
-                <td class="border-title"><a href="${root}/article?action=view&articleNo=${article.articleNo}" style="text-decoration: none; color: black;font-weight: bold !important;">${article.content}</a></td>
-               	<td>${article.email}</td>
-                <td>${article.registTime }</td>
-                <td>${article.hit }</td>
-                <td>${article.heart }</td>
-              </tr>
-            </c:forEach>
-            </c:when>
-            <c:otherwise>
-            	<tr>
-            		<td colspan="7">등록된 게시글이 없습니다.</td>
-            	</tr>
-            </c:otherwise>
-            </c:choose>
+            <tbody id="board-table-body">
+              <c:choose>
+                <c:when test="${not empty articles}">
+                  <c:forEach var="article" items="${articles}">
+                    <tr>
+                      <td>${article.articleNo }</td>
+                      <td class="border-category" style="color: #ad7be9">
+                        ${article.articleCategory }
+                      </td>
+                      <td class="border-title">
+                        <a
+                          href="${root}/article?action=view&articleNo=${article.articleNo}"
+                          style="text-decoration: none; color: black; font-weight: bold !important"
+                          >${article.content}</a
+                        >
+                      </td>
+                      <td>${article.email}</td>
+                      <td>${article.registTime }</td>
+                      <td>${article.hit }</td>
+                      <td>${article.heart }</td>
+                    </tr>
+                  </c:forEach>
+                </c:when>
+                <c:otherwise>
+                  <tr>
+                    <td colspan="7">등록된 게시글이 없습니다.</td>
+                  </tr>
+                </c:otherwise>
+              </c:choose>
             </tbody>
           </table>
           <div id="board-article-write-div">
-            <button onClick="location.href='${root}/view/board/boardWrite.jsp';" id="article-write-mvbtn" class="btn btn-outline-warning btn-lg">글쓰기</button>
+            <button
+              onClick="location.href='${root}/view/board/boardWrite.jsp';"
+              id="article-write-mvbtn"
+              class="btn btn-outline-warning btn-lg"
+            >
+              글쓰기
+            </button>
           </div>
         </div>
       </div>
@@ -111,4 +124,3 @@
     <!-- End Script -->
   </body>
 </html>
-

@@ -3,15 +3,15 @@ document.getElementById("article-comment-btn").addEventListener("click", getRevi
 
 document.getElementById("artilce-modal-comment-write-btn").addEventListener("click", function () {
     let reviewContent = document.getElementById("article-modal-comment-textarea");
-    if (reviewContent.value == "") 
+    if (reviewContent.value == "")
         return;
-    fetch(rootUrl, {
+    let url = rootUrl + "?action=writeReview";
+    fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            action: "writeReview",
             articleNo: getArticleNo(),
             content: reviewContent.value
         })
@@ -22,8 +22,23 @@ document.getElementById("artilce-modal-comment-write-btn").addEventListener("cli
                 getReview();
             }
         });
-    
+
 })
+
+let heartFlag;
+document.getElementById("article-heart-btn").addEventListener("click", function () {
+    if (heartFlag == true) {
+        
+    } else {
+        
+    }
+})
+
+document.getElementById("article-delete-btn").addEventListener("click", function () {
+    console.log("빠방");
+    location.href = rootUrl + "?action=deleteArticle&articleNo=" + getArticleNo();
+})
+
 
 function getArticleNo() {
     let urlParams = new URL(location.href).searchParams;

@@ -123,6 +123,12 @@
                 <div class="small mb-3" id="article-category"></div>
                 <h1 class="display-5 fw-bolder">${articleInfo.title}</h1>
                 <div>
+                  <div
+                    id="comment-text"
+                    style="font-size: 1rem !important; color: rgb(139, 138, 138)"
+                  >
+                    작성자 : ${articleInfo.email}
+                  </div>
                   <div class="fs-5 mb-5" id="comment-text">조회수 : ${articleInfo.hit}</div>
                 </div>
 
@@ -130,7 +136,7 @@
                 <div class="d-flex" style="justify-content: space-between">
                   <div>
                     <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                      <i class="bi bi-hand-thumbs-up me-1"></i> 좋아요!
+                      <i id="article-heart-btn" class="bi bi-hand-thumbs-up me-1"></i> 좋아요!
                     </button>
                     <svg
                       id="article-comment-btn"
@@ -153,6 +159,7 @@
 
                   <div>
                     <button
+                      id="article-delete-btn"
                       class="btn flex-shrink-0"
                       type="button"
                       style="background: red; color: white; font-weight: bold"

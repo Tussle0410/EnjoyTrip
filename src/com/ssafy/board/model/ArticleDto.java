@@ -12,6 +12,13 @@ public class ArticleDto {
 	private int hit;
 	private Date registTime;
 	private int heart;
+	private boolean heartFlag;
+	public boolean isHeartFlag() {
+		return heartFlag;
+	}
+	public void setHeartFlag(boolean heartFlag) {
+		this.heartFlag = heartFlag;
+	}
 	public int getArticleNo() {
 		return articleNo;
 	}

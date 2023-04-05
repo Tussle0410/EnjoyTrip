@@ -214,4 +214,60 @@ public class ArticleDaoImpl implements ArticleDao{
 			dbUtil.close(pstmt, conn);
 		}
 	}
+
+	@Override
+	public List<ArticleDto> BoardFindByCategory(String category) throws SQLException {
+		List<ArticleDto> result = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select article_no, title, content, article_category, email, hit, registtime, heart \n");
+			if(category.equals("전체"))
+				sql.append("from article");
+			else 
+				sql.append("from article where article_category = ?");
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			if(!category.equals("전체"))
+				pstmt.setString(1, category);
+
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ArticleDto articleDto = new ArticleDto();
+				articleDto.setArticleNo(rs.getInt("article_no"));
+				articleDto.setTitle(rs.getString("title"));
+				articleDto.setContent(rs.getString("content"));
+				articleDto.setArticleCategory(rs.getString("article_category"));
+				articleDto.setEmail(rs.getString("email"));
+				articleDto.setHit(rs.getInt("hit"));
+				articleDto.setRegistTime(rs.getDate("registtime"));
+				articleDto.setHeart(rs.getInt("heart"));
+				result.add(articleDto);
+			}
+		} finally {
+			dbUtil.close(rs, pstmt, conn);
+		}
+		return result;
+	}
+
+	@Override
+	public void deleteArticle(int article_no) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("delete from article \n");
+			sql.append("where article_no = ? \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, article_no);
+			pstmt.executeUpdate();
+		} finally {
+			dbUtil.close(pstmt, conn);
+		}
+	}
 }
