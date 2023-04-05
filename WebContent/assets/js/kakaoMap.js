@@ -123,6 +123,7 @@ document.getElementById("btn-search").addEventListener("click", () => {
 });
 
 function showTripList(data) {
+    console.log(data);
     positions = new Array();
     let tbody = document.getElementById("trip-list");
     let tbodyContents = ``;
@@ -138,10 +139,11 @@ function showTripList(data) {
             tbodyContents += `
             <tr>
                 <td><img src="${data.firstImage == '' ? root + "/assets/img/etc/ssafy_logo.png" : data.firstImage}" class="tripListImage" /></td>
-                <td><a href="javascript:moveMarker(${idx});">${data.title}</a></td>
+                <td><a href="javascript:moveMarker(${idx});" class="tour-title">${data.title}</a></td>
                 <td>${data.addr1} ${data.addr2}</td>
             </tr>`;
             position = {
+                contentId: data.contentId,
                 title: data.title,
                 latlng: new kakao.maps.LatLng(data.latitude, data.longitude),
                 addr1: data.addr1,
@@ -224,7 +226,7 @@ function showCustomOverlay(marker, idx) {
     // 별도의 이벤트 메소드를 제공하지 않습니다
 
     var content = `
-    <div class="wrap">
+    <div class="wrap" data-bs-toggle="modal" data-bs-target="#tourViewModal" onclick="openTourViewModal(${idx})">
         <div class="info">
             <div class="title"> ${positions[idx].title}
             <div class="close" onclick="closeOverlay(${idx})" title="닫기"></div>
@@ -263,6 +265,19 @@ function closeOverlay(idx) {
     overlays[idx].setMap(null);
 }
 
+function openTourViewModal(idx) {
+    document.getElementById("tourViewModalTitle").textContent = positions[idx].title;   // 제목
+    let modalBodyImg = document.getElementById("modalBodyImg"); // 이미지
+    modalBodyImg.innerHTML = `
+        <img src="${positions[idx].firstImage}" />
+    `;
+    // 상세내용 호출
+    let modalBodyContent = document.getElementById("modalBodyContent");
+    let tourViewDetailUrl = root + `/attraction?action=tourViewDetail&contentId=${positions[idx].contentId}`;
+    fetch(tourViewDetailUrl, { method: "GET" })
+        .then((response) => response.json())
+        .then((data) => modalBodyContent.innerText = data.overview);
+}
 
 
 

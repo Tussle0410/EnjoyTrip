@@ -78,7 +78,8 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <!-- End Categories of The Month -->
 
     <!-- Start Footer -->
-    <%@ include file="/view/include/footer.jsp" %>
+    <%@ include file="/view/include/footer.jsp" %> 
+    <%@ include file="/view/include/tourViewModal.jsp" %>
     <!-- End Footer -->
 
     <!-- Start Script -->
@@ -87,7 +88,6 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd2a3494477a9c7735642bac8ac8bcbe&libraries=services,clusterer,drawing"
     ></script>
-
     <!-- End Script -->
   </body>
 </html>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
+import com.ssafy.attraction.model.dto.AttractionDescDto;
 import com.ssafy.attraction.model.dto.AttractionInfoDto;
 import com.ssafy.attraction.model.dto.GugunDto;
 import com.ssafy.attraction.model.dto.SidoDto;
@@ -38,10 +39,26 @@ public class AttractionController extends HttpServlet{
 			gugunFind(req, resp);
 		}else if("attractionFind".equals(action)) {
 			attractionFind(req, resp);
+		} else if("tourViewDetail".equals(action)) {
+			tourViewDetail(req, resp);
 		}
 	}
 	
 	
+	private void tourViewDetail(HttpServletRequest req, HttpServletResponse resp) {
+		int contentId = Integer.parseInt(req.getParameter("contentId"));
+		AttractionDescDto attractionDescDto = null;
+		try {
+			attractionDescDto = attractionService.tourViewDetail(contentId);
+			resp.setContentType("text/html;charset=utf-8");
+			PrintWriter out = resp.getWriter();
+			String jsonStr = gson.toJson(attractionDescDto);
+			out.print(jsonStr);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void attractionFind(HttpServletRequest req, HttpServletResponse resp) {
 		try {
 			int sidoCode = Integer.parseInt(req.getParameter("sidoCode"));
