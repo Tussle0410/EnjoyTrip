@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ssafy.attraction.model.dto.AttractionDescDto;
 import com.ssafy.attraction.model.dto.AttractionInfoDto;
 import com.ssafy.attraction.model.dto.GugunDto;
 import com.ssafy.attraction.model.dto.SidoDto;
@@ -122,6 +123,36 @@ public class AttractionDaoImpl implements AttractionDao {
 				attractionInfoDto.setLongitude(rs.getDouble("longitude"));
 				attractionInfoDto.setMlevel(rs.getString("mlevel"));
 				result.add(attractionInfoDto);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new SQLException("시도를 불러오는 중에 오류가 발생하였습니다.");
+		}finally {
+			dbUtil.close(rs, pstmt, conn);
+		}
+		return result;
+	}
+
+	@Override
+	public AttractionDescDto tourViewDetail(int contentId) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		AttractionDescDto result = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select * from attraction_description \n");
+			sql.append("where content_id = ? \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, contentId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = new AttractionDescDto();
+				result.setContentId(rs.getInt("content_id"));
+				result.setHomepage(rs.getString("homepage"));
+				result.setOverview(rs.getString("overview"));
+				result.setTelname(rs.getString("telname"));
 			}
 		}catch(Exception e){
 			e.printStackTrace();

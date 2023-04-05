@@ -19,8 +19,12 @@ window.onload = () => {
     // 주소값에 파라미터 받을 경우에 초기화 실행
     let param = window.location.search;
     if (param) {
-        makeGugun(areaCode);
+        makeGugun(areaCode, true);
+        // 관광지 유형 미리 표시
         if (contentCode) {
+            // let areaSel = document.getElementById("search-area");
+            // var value = areaSel.options[document.getElementById("search-area").selectedIndex].value;
+            // areaSel.options[document.getElementById("search-area").selectedIndex].selected = false;
             let contentSel = document.getElementById("search-content-id");
             for (let i = 0; i < contentSel.childElementCount; i++) {
                 if (contentSel.options[i].value == contentCode) {
@@ -45,7 +49,7 @@ window.onload = () => {
     }
 
     document.getElementById("search-area").addEventListener("change", function () {
-        makeGugun(this.value);
+        makeGugun(this.value, false);
     });
 };
 
@@ -66,14 +70,14 @@ function makeOption(data) {
 };
 
 // selectBox 도시 선택 후 해당 도시의 군,구 selectBox목록 생성
-function makeGugun(target) {
+function makeGugun(target, isFirst) {
     let url = gugunUrl + target;
     fetch(url, { method: "GET" })
         .then((response) => response.json())
-        .then((data) => makeGugunOption(data));
+        .then((data) => makeGugunOption(data, isFirst));
 }
 
-function makeGugunOption(data) {
+function makeGugunOption(data, isFirst) {
     let sel = document.getElementById("search-gungu");
     // 이전 값 존재하면 제거
     for (let i = sel.options.length - 1; i > 0; i--) {
@@ -84,7 +88,7 @@ function makeGugunOption(data) {
         data.forEach(function (data) {
             let opt = document.createElement("option");
             opt.setAttribute("value", data.gugunCode);
-            if (sigunguCode == data.gugunCode) {
+            if (isFirst && sigunguCode == data.gugunCode) {
                 opt.setAttribute("selected", "selected");
             }
             opt.appendChild(document.createTextNode(data.gugunName));
@@ -119,6 +123,7 @@ document.getElementById("btn-search").addEventListener("click", () => {
 });
 
 function showTripList(data) {
+    console.log(data);
     positions = new Array();
     let tbody = document.getElementById("trip-list");
     let tbodyContents = ``;
@@ -134,10 +139,11 @@ function showTripList(data) {
             tbodyContents += `
             <tr>
                 <td><img src="${data.firstImage == '' ? root + "/assets/img/etc/ssafy_logo.png" : data.firstImage}" class="tripListImage" /></td>
-                <td><a href="javascript:moveMarker(${idx});">${data.title}</a></td>
+                <td><a href="javascript:moveMarker(${idx});" class="tour-title">${data.title}</a></td>
                 <td>${data.addr1} ${data.addr2}</td>
             </tr>`;
             position = {
+                contentId: data.contentId,
                 title: data.title,
                 latlng: new kakao.maps.LatLng(data.latitude, data.longitude),
                 addr1: data.addr1,
@@ -208,7 +214,8 @@ function showMarker() {
 
 //해당 위치로 맵 이동
 function moveMarker(idx) {
-    kakaoMapInit(idx, false);
+    let moveLatLon = new kakao.maps.LatLng(positions[idx].latlng.Ma, positions[idx].latlng.La);
+    map.panTo(moveLatLon);
 }
 
 // 커스텀 오버레이 생성
@@ -219,7 +226,7 @@ function showCustomOverlay(marker, idx) {
     // 별도의 이벤트 메소드를 제공하지 않습니다
 
     var content = `
-    <div class="wrap">
+    <div class="wrap" data-bs-toggle="modal" data-bs-target="#tourViewModal" onclick="openTourViewModal(${idx})">
         <div class="info">
             <div class="title"> ${positions[idx].title}
             <div class="close" onclick="closeOverlay(${idx})" title="닫기"></div>
@@ -244,7 +251,7 @@ function showCustomOverlay(marker, idx) {
         map: map,
         position: marker.getPosition()
     });
-    
+
     overlays.push(customOverlay);
 
     //마커를 클릭했을 때 커스텀 오버레이를 표시합니다
@@ -255,9 +262,22 @@ function showCustomOverlay(marker, idx) {
 
 //커스텀 오버레이를 닫기 위해 호출되는 함수입니다
 function closeOverlay(idx) {
-	overlays[idx].setMap(null);
+    overlays[idx].setMap(null);
 }
 
+function openTourViewModal(idx) {
+    document.getElementById("tourViewModalTitle").textContent = positions[idx].title;   // 제목
+    let modalBodyImg = document.getElementById("modalBodyImg"); // 이미지
+    modalBodyImg.innerHTML = `
+        <img src="${positions[idx].firstImage}" />
+    `;
+    // 상세내용 호출
+    let modalBodyContent = document.getElementById("modalBodyContent");
+    let tourViewDetailUrl = root + `/attraction?action=tourViewDetail&contentId=${positions[idx].contentId}`;
+    fetch(tourViewDetailUrl, { method: "GET" })
+        .then((response) => response.json())
+        .then((data) => modalBodyContent.innerText = data.overview);
+}
 
 
 

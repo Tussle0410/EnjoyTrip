@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ssafy.attraction.model.dao.AttractionDao;
 import com.ssafy.attraction.model.dao.AttractionDaoImpl;
+import com.ssafy.attraction.model.dto.AttractionDescDto;
 import com.ssafy.attraction.model.dto.AttractionInfoDto;
 import com.ssafy.attraction.model.dto.GugunDto;
 import com.ssafy.attraction.model.dto.SidoDto;
@@ -38,6 +39,11 @@ public class AttractionServiceImpl implements AttractionService{
 	@Override
 	public List<AttractionInfoDto> attractionFindByCode(int sidoCode, int gugunCode, int contentCode) throws Exception {
 		return attractionDao.attractionFindByCode(sidoCode, gugunCode, contentCode);
+	}
+
+	@Override
+	public AttractionDescDto tourViewDetail(int contentId) throws Exception {
+		return attractionDao.tourViewDetail(contentId);
 	}
 
 }

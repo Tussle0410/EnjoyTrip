@@ -21,6 +21,7 @@
     <!-- Slick -->
     <link rel="stylesheet" type="text/css" href="${root}/assets/css/slick.min.css" />
     <link rel="stylesheet" type="text/css" href="${root}/assets/css/slick-theme.css" />
+    <link rel="stylesheet" href="${root}/assets/css/kakaomap.css" />
 	
 	<script>
 		<c:if test="${userInfo eq null}" >
