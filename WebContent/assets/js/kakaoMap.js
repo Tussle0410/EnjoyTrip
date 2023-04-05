@@ -19,8 +19,12 @@ window.onload = () => {
     // 주소값에 파라미터 받을 경우에 초기화 실행
     let param = window.location.search;
     if (param) {
-        makeGugun(areaCode);
+        makeGugun(areaCode, true);
+        // 관광지 유형 미리 표시
         if (contentCode) {
+            // let areaSel = document.getElementById("search-area");
+            // var value = areaSel.options[document.getElementById("search-area").selectedIndex].value;
+            // areaSel.options[document.getElementById("search-area").selectedIndex].selected = false;
             let contentSel = document.getElementById("search-content-id");
             for (let i = 0; i < contentSel.childElementCount; i++) {
                 if (contentSel.options[i].value == contentCode) {
@@ -45,7 +49,7 @@ window.onload = () => {
     }
 
     document.getElementById("search-area").addEventListener("change", function () {
-        makeGugun(this.value);
+        makeGugun(this.value, false);
     });
 };
 
@@ -66,14 +70,14 @@ function makeOption(data) {
 };
 
 // selectBox 도시 선택 후 해당 도시의 군,구 selectBox목록 생성
-function makeGugun(target) {
+function makeGugun(target, isFirst) {
     let url = gugunUrl + target;
     fetch(url, { method: "GET" })
         .then((response) => response.json())
-        .then((data) => makeGugunOption(data));
+        .then((data) => makeGugunOption(data, isFirst));
 }
 
-function makeGugunOption(data) {
+function makeGugunOption(data, isFirst) {
     let sel = document.getElementById("search-gungu");
     // 이전 값 존재하면 제거
     for (let i = sel.options.length - 1; i > 0; i--) {
@@ -84,7 +88,7 @@ function makeGugunOption(data) {
         data.forEach(function (data) {
             let opt = document.createElement("option");
             opt.setAttribute("value", data.gugunCode);
-            if (sigunguCode == data.gugunCode) {
+            if (isFirst && sigunguCode == data.gugunCode) {
                 opt.setAttribute("selected", "selected");
             }
             opt.appendChild(document.createTextNode(data.gugunName));
@@ -208,7 +212,8 @@ function showMarker() {
 
 //해당 위치로 맵 이동
 function moveMarker(idx) {
-    kakaoMapInit(idx, false);
+    let moveLatLon = new kakao.maps.LatLng(positions[idx].latlng.Ma, positions[idx].latlng.La);
+    map.panTo(moveLatLon);
 }
 
 // 커스텀 오버레이 생성
@@ -244,7 +249,7 @@ function showCustomOverlay(marker, idx) {
         map: map,
         position: marker.getPosition()
     });
-    
+
     overlays.push(customOverlay);
 
     //마커를 클릭했을 때 커스텀 오버레이를 표시합니다
@@ -255,7 +260,7 @@ function showCustomOverlay(marker, idx) {
 
 //커스텀 오버레이를 닫기 위해 호출되는 함수입니다
 function closeOverlay(idx) {
-	overlays[idx].setMap(null);
+    overlays[idx].setMap(null);
 }
 
 

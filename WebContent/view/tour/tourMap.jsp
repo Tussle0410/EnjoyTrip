@@ -1,33 +1,15 @@
-<%@page import="com.ssafy.attraction.model.dto.SidoDto"%>
-<%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page import="com.ssafy.attraction.model.dto.SidoDto"%> <%@page import="java.util.List"%> <%@ page
+language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Mammoth Trip</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-       <style>
-    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
-    .wrap * {padding: 0;margin: 0;}
-    .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
-    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
-    .info .close:hover {cursor: pointer;}
-    .info .body {position: relative;overflow: hidden;}
-    .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
-    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
-    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
-    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
-    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
-    .info .link {color: #5085BB;}
-</style>
   </head>
   <body>
     <!-- Header -->
-   <%@ include file="/view/include/header.jsp" %>
+    <%@ include file="/view/include/header.jsp" %>
     <!-- Close Header -->
 
     <!-- Start Banner Hero -->
@@ -43,18 +25,15 @@
     <section class="container py-5">
       <div class="row text-center pt-3">
         <div class="col-lg-12" style="display: flex; justify-content: center">
-        <form>
-          <!--  <form class="d-flex my-3" onsubmit="return false;" role="search">-->
+          <form>
+            <!--  <form class="d-flex my-3" onsubmit="return false;" role="search">-->
             <div id="trip-selecter-form">
-            <input type="hidden" name="action" value="sidoFind"/>
-              <select
-                id="search-area"
-                class="form-select me-2 select-box"
-              >
-                <option value="0" selected>지역 선택</option>
+              <input type="hidden" name="action" value="sidoFind" />
+              <select id="search-area" class="form-select me-2 select-box">
+                <option value="0">지역 선택</option>
               </select>
               <select id="search-gungu" class="form-select me-2 select-box">
-                <option value="0" selected>시군구 선택</option>
+                <option value="0">시군구 선택</option>
               </select>
               <select id="search-content-id" class="form-select me-2 select-box">
                 <option value="0" selected>관광지 유형</option>
@@ -99,16 +78,16 @@
     <!-- End Categories of The Month -->
 
     <!-- Start Footer -->
-	<%@ include file="/view/include/footer.jsp" %>
+    <%@ include file="/view/include/footer.jsp" %>
     <!-- End Footer -->
 
     <!-- Start Script -->
-	<script src="${root}/assets/js/kakaoMap.js"></script> 
+    <script src="${root}/assets/js/kakaoMap.js"></script>
     <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd2a3494477a9c7735642bac8ac8bcbe&libraries=services,clusterer,drawing"
     ></script>
-  
+
     <!-- End Script -->
   </body>
 </html>
