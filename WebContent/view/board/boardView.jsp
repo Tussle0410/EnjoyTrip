@@ -121,23 +121,22 @@
             <div class="card" style="background-color: inherit; border: 0">
               <div card-body pt-5 pb-5>
                 <div class="small mb-3" id="article-category"></div>
-                <h1 class="display-5 fw-bolder">축제 추천입니다.</h1>
+                <h1 class="display-5 fw-bolder">${articleInfo.title}</h1>
                 <div>
-                  <div class="fs-5 mb-5" id="comment-text">조회수 : 0</div>
+                  <div
+                    id="comment-text"
+                    style="font-size: 1rem !important; color: rgb(139, 138, 138)"
+                  >
+                    작성자 : ${articleInfo.email}
+                  </div>
+                  <div class="fs-5 mb-5" id="comment-text">조회수 : ${articleInfo.hit}</div>
                 </div>
 
-                <p id="article-content-div" class="lead mb-5">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem
-                  quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius
-                  blanditiis delectus ipsam minima ea iste laborum vero? Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi
-                  consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus
-                  ipsam minima ea iste laborum vero?
-                </p>
+                <p id="article-content-div" class="lead mb-5">${articleInfo.content }</p>
                 <div class="d-flex" style="justify-content: space-between">
                   <div>
                     <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                      <i class="bi bi-hand-thumbs-up me-1"></i> 좋아요!
+                      <i id="article-heart-btn" class="bi bi-hand-thumbs-up me-1"></i> 좋아요!
                     </button>
                     <svg
                       id="article-comment-btn"
@@ -160,6 +159,7 @@
 
                   <div>
                     <button
+                      id="article-delete-btn"
                       class="btn flex-shrink-0"
                       type="button"
                       style="background: red; color: white; font-weight: bold"
@@ -192,8 +192,7 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            <ul id="review-list" style="list-style: none; padding: 0px">
-            </ul>
+            <ul id="review-list" style="list-style: none; padding: 0px"></ul>
             <div style="display: flex; flex-direction: column">
               <textarea name="" id="article-modal-comment-textarea" cols="10" rows="10"></textarea>
               <button id="artilce-modal-comment-write-btn">댓글 작성</button>

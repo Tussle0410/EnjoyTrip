@@ -1,17 +1,65 @@
-let rootUrl = "http://localhost:8080/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/article?action=getReview";
-document.getElementById("article-comment-btn").addEventListener("click", function () {
+let rootUrl = "http://localhost:8080/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/article";
+document.getElementById("article-comment-btn").addEventListener("click", getReview());
+
+document.getElementById("artilce-modal-comment-write-btn").addEventListener("click", function () {
+    let reviewContent = document.getElementById("article-modal-comment-textarea");
+    if (reviewContent.value == "")
+        return;
+    let url = rootUrl + "?action=writeReview";
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            articleNo: getArticleNo(),
+            content: reviewContent.value
+        })
+    })
+        .then((response) => {
+            if (response.ok) {
+                reviewContent.value = '';
+                getReview();
+            }
+        });
+
+})
+
+let heartFlag;
+document.getElementById("article-heart-btn").addEventListener("click", function () {
+    if (heartFlag == true) {
+        
+    } else {
+        
+    }
+})
+
+document.getElementById("article-delete-btn").addEventListener("click", function () {
+    console.log("빠방");
+    location.href = rootUrl + "?action=deleteArticle&articleNo=" + getArticleNo();
+})
+
+
+function getArticleNo() {
     let urlParams = new URL(location.href).searchParams;
     let article_no = urlParams.get("articleNo");
-    let url = rootUrl + "&articleNo=" + article_no;
+    return article_no;
+}
+
+function getReview() {
+    let url = rootUrl + "?action=getReview&articleNo=" + getArticleNo();
     fetch(url, { method: "GET" })
         .then((response) => response.json())
         .then((data) => makeReview(data));
-});
+}
+
+
 function makeReview(data) {
     let reviewList = document.getElementById("review-list");
     while (reviewList.firstChild) {
         reviewList.removeChild(reviewList.firstChild);
     }
+
     data.forEach(function (data) {
         let liEl = document.createElement("li");
         let contentEl = document.createElement("div");
