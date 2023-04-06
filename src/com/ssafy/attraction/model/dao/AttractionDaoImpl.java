@@ -15,6 +15,7 @@ import com.ssafy.board.model.ArticleDto;
 import com.ssafy.board.model.dao.ArticleDao;
 import com.ssafy.board.model.dao.ArticleDaoImpl;
 import com.ssafy.util.DBUtil;
+import com.ssafy.util.PaginationDto;
 
 public class AttractionDaoImpl implements AttractionDao {
 
@@ -88,22 +89,26 @@ public class AttractionDaoImpl implements AttractionDao {
 	}
 
 	@Override
-	public List<AttractionInfoDto> attractionFindByCode(int sidoCode, int gugunCode, int contentCode)
-			throws SQLException {
+	public List<AttractionInfoDto> attractionFindByCode(int sidoCode, int gugunCode, int contentCode, PaginationDto pageDto) throws SQLException {
 		List<AttractionInfoDto> result = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		int currentPage = pageDto.getCurrentPage();
+		int maxViewCnt = pageDto.getMaxViewCnt();
+		int startIdx = (currentPage-1) * maxViewCnt;
 		try {
 			conn = dbUtil.getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append("select * from attraction_info \n");
 			sql.append("where sido_code= ? and gugun_code = ? and content_type_id = ? \n");
-			sql.append("limit 1, 6");
+			sql.append("limit ? offset ?");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, sidoCode);
 			pstmt.setInt(2, gugunCode);
 			pstmt.setInt(3, contentCode);
+			pstmt.setInt(4, maxViewCnt);
+			pstmt.setInt(5, startIdx);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				AttractionInfoDto attractionInfoDto = new AttractionInfoDto();
@@ -157,6 +162,36 @@ public class AttractionDaoImpl implements AttractionDao {
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new SQLException("시도를 불러오는 중에 오류가 발생하였습니다.");
+		}finally {
+			dbUtil.close(rs, pstmt, conn);
+		}
+		return result;
+	}
+
+	@Override
+	public int attractionTotalCntFindByCode(int sidoCode, int gugunCode, int contentCode) throws SQLException {
+		int result = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select count(*) as totalCnt \n");
+			sql.append("from attraction_info \n");
+			sql.append("where sido_code=? and gugun_code=? and content_type_id=?");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, sidoCode);
+			pstmt.setInt(2, gugunCode);
+			pstmt.setInt(3, contentCode);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("totalCnt");
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new SQLException("관광지의 총 개수를 불러오는데 실패했습니다.");
 		}finally {
 			dbUtil.close(rs, pstmt, conn);
 		}
