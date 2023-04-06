@@ -50,25 +50,31 @@
                   <div class="carousel-item active">
                     <div class="row">
                       <div class="col-4">
-
+                        <a href="#">
                           <img
                             class="card-img img-fluid card-slide-img"
                             src="${root}/assets/img/festival/fes1.png"
-                            alt="Product Image 1"/>
+                            alt="Product Image 1"
+                          />
+                        </a>
                       </div>
                       <div class="col-4">
+                        <a href="#">
                           <img
                             class="card-img img-fluid card-slide-img"
                             src="${root}/assets/img/festival/fes2.png"
                             alt="Product Image 2"
                           />
+                        </a>
                       </div>
                       <div class="col-4">
+                        <a href="#">
                           <img
                             class="card-img img-fluid card-slide-img"
                             src="${root}/assets/img/festival/fes3.png"
                             alt="Product Image 3"
                           />
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -78,25 +84,31 @@
                   <div class="carousel-item">
                     <div class="row">
                       <div class="col-4">
+                        <a href="#">
                           <img
                             class="card-img img-fluid card-slide-img"
                             src="${root}/assets/img/festival/fes5.png"
                             alt="Product Image 4"
                           />
+                        </a>
                       </div>
                       <div class="col-4">
+                        <a href="#">
                           <img
                             class="card-img img-fluid card-slide-img"
                             src="${root}/assets/img/festival/fes6.png"
                             alt="Product Image 5"
                           />
+                        </a>
                       </div>
                       <div class="col-4">
+                        <a href="#">
                           <img
                             class="card-img img-fluid card-slide-img"
                             src="${root}/assets/img/festival/fes6.png"
                             alt="Product Image 6"
                           />
+                        </a>
                       </div>
                     </div>
                   </div>
