@@ -63,10 +63,10 @@
                 <a class="nav-link" href="${root}/view/tour/tourMap.jsp">지역별 여행지</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="${root}/article?action=list">게시판</a>
+                <a class="nav-link" href="${root}/article?action=list&pageNo=1&categoryidx=0&title=.">게시판</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="${root}/view/worldcup/tourWorldcup.jsp">여행지 월드컵</a>
+                <a class="nav-link" href="${root}/view/worldcup/tourWorldcup.jsp?word=">여행지 월드컵</a>
               </li>
             </ul>
           </div>

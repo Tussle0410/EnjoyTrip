@@ -130,7 +130,7 @@
         <div class="row">
           <div class="col-12 col-md-4 mb-4">
             <div class="card h-100">
-              <a href="${root}/view/worldcup/tourWorldcup.jsp?type=accom">
+              <a href="${root}/view/worldcup/tourWorldcup.jsp?word=숙소">
                 <img
                   src="${root}/assets/img/best_top3/accommodation.jpg"
                   class="card-img-top worldcup-main"
@@ -138,7 +138,7 @@
                 />
               </a>
               <div class="card-body">
-                <a href="${root}/view/worldcup/tourWorldcup.jsp?type=accom" class="h2 text-decoration-none text-dark"
+                <a href="${root}/view/worldcup/tourWorldcup.jsp?word=숙소" class="h2 text-decoration-none text-dark"
                   >숙소</a
                 >
                 <p class="card-text">전국 유명 관광지 숙소에 대해 추천 받아 볼 수 있습니다.</p>
@@ -147,7 +147,7 @@
           </div>
           <div class="col-12 col-md-4 mb-4">
             <div class="card h-100">
-              <a href="${root}/view/worldcup/tourWorldcup.jsp?type=restaurant">
+              <a href="${root}/view/worldcup/tourWorldcup.jsp?word=식당">
                 <img
                   src="${root}/assets/img/best_top3/restaurant.jpg"
                   class="card-img-top worldcup-main"
@@ -156,7 +156,7 @@
               </a>
               <div class="card-body">
                 <a
-                  href="${root}/view/worldcup/tourWorldcup.jsp?type=restaurant"
+                  href="${root}/view/worldcup/tourWorldcup.jsp?word=식당"
                   class="h2 text-decoration-none text-dark"
                   >맛집</a
                 >
@@ -166,7 +166,7 @@
           </div>
           <div class="col-12 col-md-4 mb-4">
             <div class="card h-100">
-              <a href="${root}/view/worldcup/tourWorldcup.jsp?type=festival">
+              <a href="${root}/view/worldcup/tourWorldcup.jsp?word=축제">
                 <img
                   src="${root}/assets/img/best_top3/festival.jpg"
                   class="card-img-top worldcup-main"
@@ -175,7 +175,7 @@
               </a>
               <div class="card-body">
                 <a
-                  href="${root}/view/worldcup/tourWorldcup.jsp?type=festival"
+                  href="${root}/view/worldcup/tourWorldcup.jsp?word=축제"
                   class="h2 text-decoration-none text-dark"
                   >축제</a
                 >

@@ -232,9 +232,9 @@
           <input type="submit" id="sign-btn" value="login" />
         </div>
         </form>
-        <div id="sign-desc">Aren't you a member?<a href="regist.jsp">Sign Up</a></div>
+        <div id="sign-desc">Aren't you a member?<a href="${root}/view/member/regist.jsp">Sign Up</a></div>
         <div id="sign-found">
-          <a href="found.jsp">Forgot ID/PW?</a>
+          <a href="${root}/view/member/found.jsp">Forgot ID/PW?</a>
         </div>
       </div>
     </div>
