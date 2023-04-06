@@ -30,8 +30,8 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	public ArticleDto ArticleFindByNo(int article_no) throws Exception {
-		return articleDao.ArticleFindByNo(article_no);
+	public ArticleDto ArticleFindByNo(int article_no, String email) throws Exception {
+		return articleDao.ArticleFindByNo(article_no, email);
 	}
 
 	@Override

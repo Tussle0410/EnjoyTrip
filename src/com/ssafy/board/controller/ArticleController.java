@@ -178,9 +178,11 @@ public class ArticleController extends HttpServlet {
 	}
 
 	private String view(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
 		try {
 			int article_no = Integer.parseInt(request.getParameter("articleNo"));
-			ArticleDto articleDto = articleService.ArticleFindByNo(article_no);
+			ArticleDto articleDto = articleService.ArticleFindByNo(article_no, memberDto.getEmail());
 			articleService.plusArticleHit(article_no);
 			articleDto.plusHit();
 			request.setAttribute("articleInfo", articleDto);

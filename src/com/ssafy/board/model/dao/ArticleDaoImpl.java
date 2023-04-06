@@ -82,7 +82,7 @@ public class ArticleDaoImpl implements ArticleDao{
 	}
 
 	@Override
-	public ArticleDto ArticleFindByNo(int article_no) throws SQLException {
+	public ArticleDto ArticleFindByNo(int article_no, String email) throws SQLException {
 		ArticleDto result = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -90,21 +90,29 @@ public class ArticleDaoImpl implements ArticleDao{
 		try {
 			conn = dbUtil.getConnection();
 			StringBuilder sql = new StringBuilder();
-			sql.append("select article_no, title, content, article_category, email, hit, registtime, heart \n");
-			sql.append("from article where article_no = ?");
+			sql.append("select a.article_no, title, content, article_category, b.email, hit, registtime, heart, b.heart_code \n");
+			sql.append("from article a left outer join article_heart b \n");
+			sql.append("on a.article_no = b.article_no and b.email= ? \n");
+			sql.append("where a.article_no = ?");
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, article_no);
+			pstmt.setString(1, email);
+			pstmt.setInt(2, article_no);
 			rs = pstmt.executeQuery();
-			rs.next();
-			result = new ArticleDto();
-			result.setArticleNo(rs.getInt("article_no"));
-			result.setTitle(rs.getString("title"));
-			result.setContent(rs.getString("content"));
-			result.setArticleCategory(rs.getString("article_category"));
-			result.setEmail(rs.getString("email"));
-			result.setHit(rs.getInt("hit"));
-			result.setRegistTime(rs.getDate("registtime"));
-			result.setHeart(rs.getInt("heart"));
+			if(rs.next()) {
+				result = new ArticleDto();
+				result.setArticleNo(rs.getInt("article_no"));
+				result.setTitle(rs.getString("title"));
+				result.setContent(rs.getString("content"));
+				result.setArticleCategory(rs.getString("article_category"));
+				result.setEmail(rs.getString("email"));
+				result.setHit(rs.getInt("hit"));
+				result.setRegistTime(rs.getDate("registtime"));
+				result.setHeart(rs.getInt("heart"));
+				if(rs.getString("heart_code") == null)
+					result.setHeartFlag(false);
+				else
+					result.setHeartFlag(true);
+			}
 			return result;
 		} catch(Exception e){
 			e.printStackTrace();
