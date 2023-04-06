@@ -28,7 +28,6 @@
 ![ex_screenshot](./descImg/index/main1.PNG)
 ![ex_screenshot](./descImg/index/main2.PNG)
 ![ex_screenshot](./descImg/index/main3.PNG)
-
 ```
 ✨ 메인 페이지 구성요소
 - 네비게이션 바 
@@ -40,11 +39,15 @@
 ![ex_screenshot](./descImg/map/map1.PNG)
 ![ex_screenshot](./descImg/map/map2.PNG)
 ![ex_screenshot](./descImg/map/map3.PNG)
-
+![ex_screenshot](./descImg/map/map4.PNG)
+![ex_screenshot](./descImg/map/map5.PNG)
 ```
 🎈지역별 관광지 페이지 구성요소
 - 카카오맵 API 섹션
 - 결과 출력 섹션
+- 관광지 결과 개수에 따른 페이징 구현
+- 각 장소별 마커 및 커스텀 오버레이 구현
+- 커스텀 오버레이 클릭 시 상세 뷰 모달 구현
 ```
 
 ![ex_screenshot](./descImg/board/board1.PNG)
