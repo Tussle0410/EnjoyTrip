@@ -1,13 +1,13 @@
-let serviceKey = "hcKdeTIk7zLMkYbUAHEOcXhKRdrDIV4vUXgKVg31qeqB6eJaWfmjQ9SHI6OzGN3p7qI37SfxIbPrLPp15Iglug%3D%3D";
-let rootUrl = "http://localhost:8080/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/attraction?action=";
-let sidoUrl = rootUrl + "sidoFind";
-let gugunUrl = rootUrl + "gugunFind&sidoCode=";
-let attractionUrl = rootUrl + "attractionFind&sidoCode="
-let urlParams = new URL(location.href).searchParams;
-let areaCode = urlParams.get("areaCode");   // 시/도 코드
-let sigunguCode = urlParams.get("sigunguCode"); // 군/구 코드
-let contentCode = urlParams.get("contentCode"); // 관광지 유형
-let pageNo = urlParams.get("pageNo");   // 현재 페이지 번호
+var serviceKey = "hcKdeTIk7zLMkYbUAHEOcXhKRdrDIV4vUXgKVg31qeqB6eJaWfmjQ9SHI6OzGN3p7qI37SfxIbPrLPp15Iglug%3D%3D";
+var rootUrl = "http://localhost:8080/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/attraction?action=";
+var sidoUrl = rootUrl + "sidoFind";
+var gugunUrl = rootUrl + "gugunFind&sidoCode=";
+var attractionUrl = rootUrl + "attractionFind&sidoCode="
+var urlParams = new URL(location.href).searchParams;
+var areaCode = urlParams.get("areaCode");   // 시/도 코드
+var sigunguCode = urlParams.get("sigunguCode"); // 군/구 코드
+var contentCode = urlParams.get("contentCode"); // 관광지 유형
+var pageNo = urlParams.get("pageNo");   // 현재 페이지 번호
 var positions = [];	// 마커를 표시할 위치와 title 객체 배열입니다
 
 window.onload = () => {
@@ -99,14 +99,14 @@ function makeGugunOption(data, isFirst) {
 
 // 지역별 유형별 검색
 document.getElementById("btn-search").addEventListener("click", () => {
-    let sidoCode = document.getElementById("search-area").value;
-    let gngunCode = document.getElementById("search-gungu").value;
-    let contentCode = document.getElementById("search-content-id").value;
-    if (sidoCode == 0) {
+    areaCode = document.getElementById("search-area").value;
+    sigunguCode = document.getElementById("search-gungu").value;
+    contentCode = document.getElementById("search-content-id").value;
+    if (areaCode == 0) {
         alert("지역을 선택하세요");
         return;
     }
-    if (gngunCode == 0) {
+    if (sigunguCode == 0) {
         alert("군/구를 선택하세요");
         return;
     }
@@ -115,18 +115,20 @@ document.getElementById("btn-search").addEventListener("click", () => {
         return;
     }
 
-    let searchUrl = attractionUrl + sidoCode + "&gugunCode=" + gngunCode + "&contentCode=" + contentCode;
+    let searchUrl = attractionUrl + areaCode + "&gugunCode=" + sigunguCode + "&contentCode=" + contentCode + "&pageNo=" + 1;
     fetch(searchUrl, { method: "GET" })
         .then(res => res.json())
         .then(data => showTripList(data));
 
 });
 
+var pageInfo;	// 페이지 정보 전역에 저장
 function showTripList(data) {
-    console.log(data);
+//    console.log(data);
     positions = new Array();
     let tbody = document.getElementById("trip-list");
     let tbodyContents = ``;
+    // 관광지 리스트 생성
     if (data.length == 0) {
         tbodyContents += `
         <tr>
@@ -134,7 +136,8 @@ function showTripList(data) {
         </tr>`;
     } else {
         let idx = 0;
-        data.forEach(data => {
+        let attractions = data.attractions;
+        attractions.forEach(data => {
             var position = {};
             tbodyContents += `
             <tr>
@@ -155,8 +158,45 @@ function showTripList(data) {
         });
     }
     tbody.innerHTML = tbodyContents;
+
+    // 페이지 생성
+    pageInfo = data.pageInfo;
+    let pageBody = document.getElementById("pageBody");
+    let pageContent = `<li class="page-item"><a class="page-link" href="javascript:movePage(${pageInfo.currentPage-1})"
+			aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+		</a></li>`;
+    if (pageInfo.totalViewCnt == 0) {
+        pageContent += `
+    		<li class="page-item active"><a class="page-link" href="#">1</a></li>
+    	`;
+    } else {
+        for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
+            pageContent += `
+        		<li class="page-item ${pageInfo.currentPage == i ? "active" : ""} "><a class="page-link" href="javascript:movePage(${i})">${i}</a></li>
+        	`;
+        }
+    }
+    pageContent += `<li class="page-item"><a class="page-link" href="javascript:movePage(${pageInfo.currentPage+1})"
+			aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+		</a></li>`;
+    pageBody.innerHTML = pageContent;
+
+    // 지도 초기화
     kakaoMapInit(0, false);
 }
+
+// 페이지 이동 함수
+function movePage(currentPage) {
+	if(currentPage < 1 || currentPage > pageInfo.totalPageCnt) {
+		return;
+	}
+    let pageUrl = attractionUrl + areaCode + "&gugunCode=" + sigunguCode + "&contentCode=" + contentCode + "&pageNo=" + currentPage;
+    fetch(pageUrl, { method: "GET" })
+    .then(res => res.json())
+    .then(data => showTripList(data));
+}
+
+
 
 /* ----------------------------------------- 카카오맵 API 구문 ----------------------------------------- */
 // 카카오맵 초기 생성
@@ -185,11 +225,15 @@ function kakaoMapInit(idx, isFirst) {
     if (!isFirst) showMarker();
 }
 
+// 커스텀 오버레이 생성
+let overlays;
 // 마커 생성
 function showMarker() {
+	overlays = new Array();
     // 마커 이미지의 이미지 주소입니다
     var imageSrc = root + "/assets/img/marker/location.png";
     var marker;
+
 
     for (var i = 0; i < positions.length; i++) {
         // 마커 이미지의 이미지 크기 입니다
@@ -218,20 +262,19 @@ function moveMarker(idx) {
     map.panTo(moveLatLon);
 }
 
-// 커스텀 오버레이 생성
-let overlays = [];
+
 function showCustomOverlay(marker, idx) {
     // 커스텀 오버레이에 표시할 컨텐츠 입니다
     // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
     // 별도의 이벤트 메소드를 제공하지 않습니다
 
     var content = `
-    <div class="wrap" data-bs-toggle="modal" data-bs-target="#tourViewModal" onclick="openTourViewModal(${idx})">
+    <div class="wrap"  >
         <div class="info">
             <div class="title"> ${positions[idx].title}
             <div class="close" onclick="closeOverlay(${idx})" title="닫기"></div>
             </div>
-            <div class="body">
+            <div class="body" data-bs-toggle="modal" data-bs-target="#tourViewModal" onclick="openTourViewModal(${idx})">
                 <div class="img">
                     <img src="${positions[idx].firstImage}" width="73" height="70">
                 </div>
@@ -262,6 +305,8 @@ function showCustomOverlay(marker, idx) {
 
 //커스텀 오버레이를 닫기 위해 호출되는 함수입니다
 function closeOverlay(idx) {
+	console.log("작동" + idx);
+	console.log(overlays);
     overlays[idx].setMap(null);
 }
 

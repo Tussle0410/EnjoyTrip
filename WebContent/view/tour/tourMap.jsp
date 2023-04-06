@@ -74,7 +74,9 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
           </table>
         </div>
       </div>
+      <%@ include file="/view/include/pagination.jsp" %>
     </section>
+    
     <!-- End Categories of The Month -->
 
     <!-- Start Footer -->

@@ -9,6 +9,7 @@ import com.ssafy.attraction.model.dto.AttractionDescDto;
 import com.ssafy.attraction.model.dto.AttractionInfoDto;
 import com.ssafy.attraction.model.dto.GugunDto;
 import com.ssafy.attraction.model.dto.SidoDto;
+import com.ssafy.util.PaginationDto;
 public class AttractionServiceImpl implements AttractionService{
 	
 	private AttractionDao attractionDao;
@@ -37,13 +38,18 @@ public class AttractionServiceImpl implements AttractionService{
 	}
 
 	@Override
-	public List<AttractionInfoDto> attractionFindByCode(int sidoCode, int gugunCode, int contentCode) throws Exception {
-		return attractionDao.attractionFindByCode(sidoCode, gugunCode, contentCode);
+	public List<AttractionInfoDto> attractionFindByCode(int sidoCode, int gugunCode, int contentCode, PaginationDto pageDto) throws Exception {
+		return attractionDao.attractionFindByCode(sidoCode, gugunCode, contentCode, pageDto);
 	}
 
 	@Override
 	public AttractionDescDto tourViewDetail(int contentId) throws Exception {
 		return attractionDao.tourViewDetail(contentId);
+	}
+
+	@Override
+	public int attractionTotalCntFindByCode(int sidoCode, int gugunCode, int contentCode) throws Exception {
+		return attractionDao.attractionTotalCntFindByCode(sidoCode, gugunCode, contentCode);
 	}
 
 }
