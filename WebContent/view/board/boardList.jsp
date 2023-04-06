@@ -83,7 +83,7 @@
                         <a
                           href="${root}/article?action=view&articleNo=${article.articleNo}"
                           style="text-decoration: none; color: black; font-weight: bold !important"
-                          >${article.content}</a
+                          >${article.title}</a
                         >
                       </td>
                       <td>${article.email}</td>
