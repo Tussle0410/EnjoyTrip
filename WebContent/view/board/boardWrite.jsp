@@ -23,8 +23,12 @@
               <div class="card-body" style="height: 600px">
                 <div class="row col-md-12 justify-content-center" style="padding: 50px">
                   <div class="row col-md-12">
-                    <form id="article-form" method="POST" action="${root}/article">
-                      <input type="hidden" name="action" value="write" />
+                    <form
+                      id="article-form"
+                      method="POST"
+                      action="${root}/article?action=write"
+                      enctype="multipart/form-data"
+                    >
                       <div
                         id="board-write-category-selectbox"
                         style="display: flex; margin: 1rem 0"
@@ -68,9 +72,9 @@
                       </div>
                       <div style="display: flex; justify-content: flex-end">
                         <div class="filebox" style="display: flex; justify-content: flex-end">
-                          <input class="upload-name" value="첨부파일" placeholder="첨부파일" />
+                          <input class="upload-name" name="file1" placeholder="첨부파일" />
                           <label for="file">파일찾기</label>
-                          <input type="file" id="file" multiple />
+                          <input type="file" id="file" name="file2" multiple />
                         </div>
                       </div>
                       <div style="margin-top: 1rem">

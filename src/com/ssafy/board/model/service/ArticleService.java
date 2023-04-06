@@ -17,4 +17,6 @@ public interface ArticleService {
 	void headrDown(int article_no, String email) throws Exception;
 	List<ArticleDto> BoardFindByCategory(String category) throws Exception;
 	void deleteArticle(int article_no) throws Exception;
+	void plusArticleHeart(int article_no) throws SQLException;
+	void minusArticleHeart(int article_no) throws SQLException;
 }

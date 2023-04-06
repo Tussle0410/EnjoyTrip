@@ -5,6 +5,10 @@
     <title>Mammoth Trip</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css"
+    />
   </head>
 
   <body>
@@ -46,31 +50,25 @@
                   <div class="carousel-item active">
                     <div class="row">
                       <div class="col-4">
-                        <a href="#">
+
                           <img
                             class="card-img img-fluid card-slide-img"
                             src="${root}/assets/img/festival/fes1.png"
-                            alt="Product Image 1"
-                          />
-                        </a>
+                            alt="Product Image 1"/>
                       </div>
                       <div class="col-4">
-                        <a href="#">
                           <img
                             class="card-img img-fluid card-slide-img"
                             src="${root}/assets/img/festival/fes2.png"
                             alt="Product Image 2"
                           />
-                        </a>
                       </div>
                       <div class="col-4">
-                        <a href="#">
                           <img
                             class="card-img img-fluid card-slide-img"
                             src="${root}/assets/img/festival/fes3.png"
                             alt="Product Image 3"
                           />
-                        </a>
                       </div>
                     </div>
                   </div>
@@ -80,31 +78,25 @@
                   <div class="carousel-item">
                     <div class="row">
                       <div class="col-4">
-                        <a href="#">
                           <img
                             class="card-img img-fluid card-slide-img"
                             src="${root}/assets/img/festival/fes5.png"
                             alt="Product Image 4"
                           />
-                        </a>
                       </div>
                       <div class="col-4">
-                        <a href="#">
                           <img
                             class="card-img img-fluid card-slide-img"
                             src="${root}/assets/img/festival/fes6.png"
                             alt="Product Image 5"
                           />
-                        </a>
                       </div>
                       <div class="col-4">
-                        <a href="#">
                           <img
                             class="card-img img-fluid card-slide-img"
-                            src="${root}/assets/img/festival/fes7.png"
+                            src="${root}/assets/img/festival/fes6.png"
                             alt="Product Image 6"
                           />
-                        </a>
                       </div>
                     </div>
                   </div>
@@ -134,10 +126,30 @@
 
                 <p id="article-content-div" class="lead mb-5">${articleInfo.content }</p>
                 <div class="d-flex" style="justify-content: space-between">
-                  <div>
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                      <i id="article-heart-btn" class="bi bi-hand-thumbs-up me-1"></i> 좋아요!
-                    </button>
+                  <div id="heart-box">
+                    <c:if test="${articleInfo.heartFlag == false}">
+                      <button
+                        id="article-heart-btn"
+                        class="btn btn-outline-dark flex-shrink-0"
+                        value="false"
+                        type="button"
+                      >
+                        <i class="bi bi-hand-thumbs-up me-1"></i>
+                        좋아요
+                      </button>
+                    </c:if>
+                    <c:if test="${articleInfo.heartFlag == true}">
+                      <button
+                        id="article-heart-btn"
+                        class="btn flex-shrink-0 bg-success bg-gradient"
+                        value="true"
+                        type="button"
+                      >
+                        <i class="bi bi-hand-thumbs-up me-1"></i>
+                        좋아요!!
+                      </button>
+                    </c:if>
+
                     <svg
                       id="article-comment-btn"
                       xmlns="http://www.w3.org/2000/svg"

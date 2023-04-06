@@ -1,11 +1,11 @@
 package com.ssafy.board.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,6 +33,9 @@ public class ArticleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Gson gson;
 	ArticleService articleService;
+    private static final String CHARSET = "utf-8";
+    private static final String ATTACHES_DIR = "C:\\attaches";
+    private static final int LIMIT_SIZE_BYTES = 1024 * 1024;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -72,6 +80,7 @@ public class ArticleController extends HttpServlet {
 		int article_no = Integer.parseInt(request.getParameter("articleNo"));
 		try {
 			articleService.heartUp(article_no, memberDto.getEmail());
+			articleService.plusArticleHeart(article_no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -84,6 +93,7 @@ public class ArticleController extends HttpServlet {
 		int article_no = Integer.parseInt(request.getParameter("articleNo"));
 		try {
 			articleService.headrDown(article_no, memberDto.getEmail());
+			articleService.minusArticleHeart(article_no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -105,7 +115,7 @@ public class ArticleController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding(CHARSET);
 		doGet(request, response);
 	}
 
@@ -197,13 +207,40 @@ public class ArticleController extends HttpServlet {
 	private String write(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
+		response.setContentType("text/html; charset=UTF-8");
+
+        File attachesDir = new File(ATTACHES_DIR);
+        DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
+        fileItemFactory.setRepository(attachesDir);
+        fileItemFactory.setSizeThreshold(LIMIT_SIZE_BYTES);
+        ServletFileUpload fileUpload = new ServletFileUpload(fileItemFactory);
+        
 		ArticleDto articleDto = new ArticleDto();
-		articleDto.setTitle(request.getParameter("title"));
-		articleDto.setContent(request.getParameter("content"));
-		articleDto.setArticleCategory(request.getParameter("category"));
 		articleDto.setEmail(memberDto.getEmail());
 
 		try {
+            RequestContext requestContext = new ServletRequestContext(request);
+            List<FileItem> items = fileUpload.parseRequest(requestContext);
+            for (FileItem item : items) {
+                if (item.isFormField()) {
+                	System.out.println(item.getString() + " : " + item.getFieldName());
+                	if("title".equals(item.getFieldName())) {
+                		articleDto.setTitle(item.getString(CHARSET));
+                	}else if("content".equals(item.getFieldName())) {
+                		articleDto.setContent(item.getString(CHARSET));
+                	}else if("category".equals(item.getFieldName())) {
+                		articleDto.setArticleCategory(item.getString(CHARSET));
+                	}
+                } else {
+                    if (item.getSize() > 0) {
+                        String separator = File.separator;
+                        int index =  item.getName().lastIndexOf(separator);
+                        String fileName = item.getName().substring(index  + 1);
+                        File uploadFile = new File(ATTACHES_DIR +  separator + fileName);
+                        item.write(uploadFile);
+                    }
+                }
+            }
 			articleService.writeArticle(articleDto);
 			return "/article?action=list";
 		} catch (Exception e) {

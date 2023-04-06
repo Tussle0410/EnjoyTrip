@@ -25,19 +25,29 @@ document.getElementById("artilce-modal-comment-write-btn").addEventListener("cli
 
 })
 
-let heartFlag;
+
 document.getElementById("article-heart-btn").addEventListener("click", function () {
-    if (heartFlag == true) {
-        
+    let flag = this.value;
+    console.log(flag);
+    let url = rootUrl;
+    if (flag == "false") {
+        url += "?action=heartUp&articleNo="+getArticleNo();
+        fetch(url, { method: "GET" })
+        this.setAttribute("value", true);
+        this.setAttribute("class", "btn flex-shrink-0 bg-success bg-gradient");
     } else {
-        
+        url += "?action=heartDown&articleNo=" + getArticleNo();
+        fetch(url, { method: "GET" })
+        this.setAttribute("value", false);
+        this.setAttribute("class", "btn btn-outline-dark flex-shrink-0");
     }
 })
 
+
 document.getElementById("article-delete-btn").addEventListener("click", function () {
-    console.log("빠방");
     location.href = rootUrl + "?action=deleteArticle&articleNo=" + getArticleNo();
 })
+
 
 
 function getArticleNo() {

@@ -1,5 +1,6 @@
 package com.ssafy.board.model.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import com.ssafy.board.model.ArticleDto;
 import com.ssafy.board.model.ArticleReviewDto;
@@ -70,6 +71,17 @@ public class ArticleServiceImpl implements ArticleService{
 	@Override
 	public void headrDown(int article_no, String email) throws Exception {
 		articleDao.headrDown(article_no, email);
+	}
+
+	@Override
+	public void plusArticleHeart(int article_no) throws SQLException {
+		articleDao.plusArticleHeart(article_no);
+		
+	}
+
+	@Override
+	public void minusArticleHeart(int article_no) throws SQLException {
+		articleDao.minusArticleHeart(article_no);
 	}
 
 }

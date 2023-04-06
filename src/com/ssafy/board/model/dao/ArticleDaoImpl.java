@@ -168,6 +168,38 @@ public class ArticleDaoImpl implements ArticleDao{
 			dbUtil.close(pstmt, conn);
 		}
 	}
+	@Override
+	public void plusArticleHeart(int article_no) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("update article set heart = heart+1 \n");
+			sql.append("where article_no = ? \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, article_no);
+			pstmt.executeUpdate();
+		} finally {
+			dbUtil.close(pstmt, conn);
+		}
+	}
+	@Override
+	public void minusArticleHeart(int article_no) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("update article set heart = heart-1 \n");
+			sql.append("where article_no = ? \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, article_no);
+			pstmt.executeUpdate();
+		} finally {
+			dbUtil.close(pstmt, conn);
+		}
+	}
 
 	@Override
 	public void writeReview(ArticleReviewDto reviewDto) throws SQLException {
@@ -217,6 +249,7 @@ public class ArticleDaoImpl implements ArticleDao{
 			sql.append("where article_no = ? and email = ? \n");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, article_no);
+			pstmt.setString(2, email);
 			pstmt.executeUpdate();
 		} finally {
 			dbUtil.close(pstmt, conn);
