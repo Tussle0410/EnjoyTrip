@@ -16,6 +16,15 @@
 ![CSS](https://img.shields.io/badge/CSS-1572B6.svg?&style=for-the-badge&logo=CSS3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3.svg?&style=for-the-badge&logo=Bootstrap&logoColor=white)
+![MYSQL](https://img.shields.io/badge/mysql-4479A1.svg?&style=for-the-badge&logo=MYSQL&logoColor=white)
+![JSP](https://img.shields.io/badge/JSP-E9568E.svg?&style=for-the-badge&logo=JSP&logoColor=white)
+![Servlet](https://img.shields.io/badge/Servlet-0ABF53.svg?&style=for-the-badge&logo=Servlet&logoColor=white)
+![JSTL](https://img.shields.io/badge/JSTL-FF6550.svg?&style=for-the-badge&logo=JSTL&logoColor=white)
+![Eclipse IDE](https://img.shields.io/badge/Eclipse%20IDE-2C2255.svg?&style=for-the-badge&logo=Eclipse%20IDE&logoColor=white)
+
+
+## :triangular_ruler: ER-Diagram
+![ex_screenshot](./descImg/DB/ER_Diagram.png)
 
 ## 📢Web Function
 
