@@ -1,4 +1,5 @@
-let rootUrl = "http://localhost:8080/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/article";
+var hostname = window.location.hostname;
+let rootUrl = "http://" + hostname +  ":8080/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/article";
 document.getElementById("article-comment-btn").addEventListener("click", getReview());
 
 document.getElementById("artilce-modal-comment-write-btn").addEventListener("click", function () {
@@ -85,3 +86,4 @@ function makeReview(data) {
         reviewList.appendChild(liEl);
     });
 }
+

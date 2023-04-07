@@ -72,9 +72,9 @@
                       </div>
                       <div style="display: flex; justify-content: flex-end">
                         <div class="filebox" style="display: flex; justify-content: flex-end">
-                          <input class="upload-name" name="file1" placeholder="첨부파일" />
+                          <input class="upload-name" placeholder="첨부파일" />
                           <label for="file">파일찾기</label>
-                          <input type="file" id="file" name="file2" multiple />
+                          <input type="file" id="file" name="file" multiple />
                         </div>
                       </div>
                       <div style="margin-top: 1rem">

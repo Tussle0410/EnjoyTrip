@@ -1,17 +1,16 @@
 package com.ssafy.board.model.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.ssafy.board.model.ArticleDto;
+import com.ssafy.board.model.ArticleImgDto;
 import com.ssafy.board.model.ArticleReviewDto;
 import com.ssafy.util.DBUtil;
+import com.ssafy.util.PaginationDto;
 
 public class ArticleDaoImpl implements ArticleDao{
 	private DBUtil dbUtil;
@@ -29,17 +28,23 @@ public class ArticleDaoImpl implements ArticleDao{
 	}
 	
 	@Override
-	public List<ArticleDto> BoardFindByAll() throws SQLException {
+	public List<ArticleDto> BoardFindByAll(PaginationDto pageDto) throws SQLException {
 		List<ArticleDto> result = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		int currentPage = pageDto.getCurrentPage();
+		int maxViewCnt = pageDto.getMaxViewCnt();
+		int startIdx = (currentPage-1) * maxViewCnt;
 		try {
 			conn = dbUtil.getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append("select article_no, title, content, article_category, email, hit, registtime, heart \n");
-			sql.append("from article");
+			sql.append("from article \n");
+			sql.append("limit ? offset ?");
 			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, maxViewCnt);
+			pstmt.setInt(2, startIdx);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				ArticleDto articleDto = new ArticleDto();
@@ -257,24 +262,33 @@ public class ArticleDaoImpl implements ArticleDao{
 	}
 
 	@Override
-	public List<ArticleDto> BoardFindByCategory(String category) throws SQLException {
+	public List<ArticleDto> BoardFindByCategory(String category, PaginationDto paginationDto) throws SQLException {
 		List<ArticleDto> result = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		int currentPage = paginationDto.getCurrentPage();
+		int maxViewCnt = paginationDto.getMaxViewCnt();
+		int startIdx = (currentPage-1) * maxViewCnt;
 		try {
 			conn = dbUtil.getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append("select article_no, title, content, article_category, email, hit, registtime, heart \n");
 			if(category.equals("전체"))
-				sql.append("from article");
+				sql.append("from article \n");
 			else 
-				sql.append("from article where article_category = ?");
-			
+				sql.append("from article where article_category = ? \n");
+			sql.append("limit ? offset ?");
 			pstmt = conn.prepareStatement(sql.toString());
 			
-			if(!category.equals("전체"))
+			if(!category.equals("전체")) {
 				pstmt.setString(1, category);
+				pstmt.setInt(2, maxViewCnt);
+				pstmt.setInt(3, startIdx);
+			}else {
+				pstmt.setInt(1, maxViewCnt);
+				pstmt.setInt(2, startIdx);
+			}
 
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -310,5 +324,171 @@ public class ArticleDaoImpl implements ArticleDao{
 		} finally {
 			dbUtil.close(pstmt, conn);
 		}
+	}
+
+	@Override
+	public void uploadArticleImg(ArticleImgDto articleImgDto) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("insert into article_img(article_no, img) value((select article_no from article order by article_no desc limit 1), ?) \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, articleImgDto.getImg());
+			pstmt.executeUpdate();
+		} finally {
+			dbUtil.close(pstmt, conn);
+		}
+		
+	}
+
+	@Override
+	public List<ArticleImgDto> loadArticleImg(int article_no) throws SQLException {
+		List<ArticleImgDto> result = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select article_no, img  \n");
+			sql.append("from article_img where article_no = ? limit 6");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, article_no);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ArticleImgDto articleImgDto = new ArticleImgDto();
+				articleImgDto.setArticleNo(rs.getInt("article_no"));
+				articleImgDto.setImg(rs.getString("img"));
+				result.add(articleImgDto);
+			}
+		} finally {
+			dbUtil.close(rs, pstmt, conn);
+		}
+		return result;
+	}
+
+	@Override
+	public int articleCntFindByCode() throws SQLException {
+		int result = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select count(*) as totalCnt \n");
+			sql.append("from article \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("totalCnt");
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new SQLException("게시글의 총 개수를 불러오는데 실패했습니다.");
+		}finally {
+			dbUtil.close(rs, pstmt, conn);
+		}
+		return result;
+	}
+
+	@Override
+	public int articleCntFindByCategory(String category) throws SQLException {
+		int result = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select count(*) as totalCnt \n");
+			sql.append("from article \n");
+			if(!category.equals("전체"))
+				sql.append("where article_category = ? \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			if(!category.equals("전체"))
+				pstmt.setString(1, category);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("totalCnt");
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new SQLException("게시글의 총 개수를 불러오는데 실패했습니다.");
+		}finally {
+			dbUtil.close(rs, pstmt, conn);
+		}
+		return result;
+	}
+
+	@Override
+	public int articleCntFindBytitle(String title) throws SQLException {
+		int result = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select count(*) as totalCnt \n");
+			sql.append("from article \n");
+			sql.append("where title like ? \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, "%" + title + "%");
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("totalCnt");
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+			throw new SQLException("게시글의 총 개수를 불러오는데 실패했습니다.");
+		}finally {
+			dbUtil.close(rs, pstmt, conn);
+		}
+		return result;
+	}
+
+	@Override
+	public List<ArticleDto> BoardFindByTitle(String title, PaginationDto pageDto) throws SQLException {
+		List<ArticleDto> result = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int currentPage = pageDto.getCurrentPage();
+		int maxViewCnt = pageDto.getMaxViewCnt();
+		int startIdx = (currentPage-1) * maxViewCnt;
+		try {
+			conn = dbUtil.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select article_no, title, content, article_category, email, hit, registtime, heart \n");
+			sql.append("from article \n");
+			sql.append("where title LIKE ? \n");
+			sql.append("limit ? offset ?");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, "%" + title + "%");
+			pstmt.setInt(2, maxViewCnt);
+			pstmt.setInt(3, startIdx);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ArticleDto articleDto = new ArticleDto();
+				articleDto.setArticleNo(rs.getInt("article_no"));
+				articleDto.setTitle(rs.getString("title"));
+				articleDto.setContent(rs.getString("content"));
+				articleDto.setArticleCategory(rs.getString("article_category"));
+				articleDto.setEmail(rs.getString("email"));
+				articleDto.setHit(rs.getInt("hit"));
+				articleDto.setRegistTime(rs.getDate("registtime"));
+				articleDto.setHeart(rs.getInt("heart"));
+				result.add(articleDto);
+			}
+		} finally {
+			dbUtil.close(rs, pstmt, conn);
+		}
+		return result;
 	}
 }

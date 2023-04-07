@@ -3,9 +3,11 @@ package com.ssafy.board.model.service;
 import java.sql.SQLException;
 import java.util.List;
 import com.ssafy.board.model.ArticleDto;
+import com.ssafy.board.model.ArticleImgDto;
 import com.ssafy.board.model.ArticleReviewDto;
 import com.ssafy.board.model.dao.ArticleDao;
 import com.ssafy.board.model.dao.ArticleDaoImpl;
+import com.ssafy.util.PaginationDto;
 
 public class ArticleServiceImpl implements ArticleService{
 	
@@ -21,8 +23,8 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	public List<ArticleDto> BoardFindByAll() throws Exception {
-		return articleDao.BoardFindByAll();
+	public List<ArticleDto> BoardFindByAll(PaginationDto pageDto) throws Exception {
+		return articleDao.BoardFindByAll(pageDto);
 	}
 
 	@Override
@@ -53,8 +55,8 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	public List<ArticleDto> BoardFindByCategory(String category) throws Exception {
-		return articleDao.BoardFindByCategory(category);
+	public List<ArticleDto> BoardFindByCategory(String category, PaginationDto paginationDto) throws Exception {
+		return articleDao.BoardFindByCategory(category, paginationDto);
 	}
 
 	@Override
@@ -82,6 +84,38 @@ public class ArticleServiceImpl implements ArticleService{
 	@Override
 	public void minusArticleHeart(int article_no) throws SQLException {
 		articleDao.minusArticleHeart(article_no);
+	}
+
+	@Override
+	public void uploadArticleImg(ArticleImgDto articleImgDto) throws Exception {
+		articleDao.uploadArticleImg(articleImgDto);
+		
+	}
+
+	@Override
+	public List<ArticleImgDto> loadArticleImg(int article_no) throws Exception {
+		return articleDao.loadArticleImg(article_no);
+	}
+
+	@Override
+	public int articleCntFindByCode() throws Exception {
+		return articleDao.articleCntFindByCode();
+	}
+
+	@Override
+	public int articleCntFindByCategory(String category) throws Exception {
+		return articleDao.articleCntFindByCategory(category);
+	}
+
+	@Override
+	public int articleCntFindBytitle(String title) throws Exception {
+		return articleDao.articleCntFindBytitle(title);
+	}
+
+	@Override
+	public List<ArticleDto> BoardFindByTitle(String title, PaginationDto pageDto) throws Exception {
+		// TODO Auto-generated method stub
+		return articleDao.BoardFindByTitle(title, pageDto);
 	}
 
 }

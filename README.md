@@ -48,15 +48,20 @@
 - 관광지 결과 개수에 따른 페이징 구현
 - 각 장소별 마커 및 커스텀 오버레이 구현
 - 커스텀 오버레이 클릭 시 상세 뷰 모달 구현
-```
 
+```
 ![ex_screenshot](./descImg/board/board1.PNG)
+![ex_screenshot](./descImg/board/board2.PNG)
+![ex_screenshot](./descImg/board/board3.PNG)
+![ex_screenshot](./descImg/board/board4.PNG)
 ```
 📃게시판 페이지 구성요소
 - 유형 탭
 - 게시글 리스트 테이블
 - 검색 
 - 글쓰기
+- 사용자별 좋아요 표시
+- 댓글 입력 및 리스트 
 ```
 
 ![ex_screenshot](./descImg/worldcup/worldcup1.PNG)

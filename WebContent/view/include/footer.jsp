@@ -43,7 +43,7 @@
 				</div>
 				<div class="col-auto">
 					<ul class="nav justify-content-end">
-						<li class="nav-item"><a class="nav-link" href="#">사이트 소개</a>
+						<li class="nav-item"><a class="nav-link" href="${root}/view/error/error.jsp">사이트 소개</a>
 						</li>
 						<li class="nav-item"><a class="nav-link" href="#">개인정보처리방침</a>
 						</li>

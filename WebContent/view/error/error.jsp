@@ -13,7 +13,7 @@
     
     <!-- Start Featured Product -->
     <section class="bg-light">
-    에러발생함 ㅅㄱ
+  		<img alt="" src="${root}/assets/img/error/404.png" style="width:100%; height:800px;">
     </section>
     <!-- End Featured Product -->
     

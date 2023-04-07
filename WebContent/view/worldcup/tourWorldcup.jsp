@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,50 +9,55 @@
 
   <body>
     <!-- Header -->
- 	<%@ include file="/view/include/header.jsp" %>
+    <%@ include file="/view/include/header.jsp" %>
     <!-- Close Header -->
 
-    <!-- Start Banner Hero -->
-    <div class="container-fluid pt-5 mt-5">
-      <div class="col-md-6 m-auto text-center">
-        <h1 class="h1">여행지 월드컵</h1>
-        <hr id="board-title-bottomline" />
+    <main style="height: 610px">
+      <div class="container-fluid pt-5 mt-5">
+        <div class="col-md-6 m-auto text-center">
+          <h1 class="h1">여행지 월드컵</h1>
+          <hr id="board-title-bottomline" />
+        </div>
       </div>
-    </div>
-    <!-- End Banner Hero -->
 
-    <!-- Start Categories of The Month -->
-    <section class="container py-5">
-      <div class="row text-center pt-3">
-        <div class="col-lg-12 m-auto">
-          <div class="col-lg--12 mt-5">
-            <div class="card">
-              <h1 class="h1" id="title" style="margin-top: 1.5rem">test</h1>
-              <div class="card-body row col-md-12" id="main-view">
-                <div class="row justify-content-center">
-                  <a href="#" class="row col-md-5">
-                    <img src="${root}/assets/img/accom/busan_comodo_hotel.jpg" alt="" />
-                  </a>
-                  <div class="row col-md-1"><p class="vs-text">VS</p></div>
-                  <a href="#" class="row col-md-5">
-                    <img src="${root}/assets/img/accom/busan_hotel1_hotel.jpg" alt="" />
-                  </a>
-                </div>
+      <section class="container pb-5 mt-5" style="margin-top: 10rem !important">
+        <div id="board-searchBar" class="row;">
+          <div style="display: flex; justify-content: center; width: 1300px">
+            <div
+              class="input-group mb-3"
+              style="width: 1000px !important; max-width: 1000px !important"
+            >
+              <input
+                type="text"
+                class="form-control input-text"
+                placeholder="주제를 입력해주세요."
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+                id="worldcup-search-text"
+                style="text-align: center"
+                value="<%= request.getParameter("word") %>"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-warning btn-lg"
+                  type="button"
+                  id="worldcup-search-btn"
+                >
+                  <i class="fa fa-search"></i>
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- End Categories of The Month -->
+      </section>
+    </main>
 
     <!-- Start Footer -->
     <%@ include file="/view/include/footer.jsp" %>
     <!-- End Footer -->
-    
+
     <!-- Start Script -->
     <script src="${root}/assets/js/worldcup.js"></script>
     <!-- End Script -->
   </body>
 </html>
-    
