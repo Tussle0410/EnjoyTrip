@@ -80,7 +80,7 @@ public class AttractionController extends HttpServlet{
 			int maxViewCnt = pageDto.getMaxViewCnt();
 			int pageGroup = (currentPage-1) / maxPageCnt + 1;
 			int totalViewCnt = attractionService.attractionTotalCntFindByCode(sidoCode, gugunCode, contentCode);
-			int totalPageCnt = (int) Math.ceil(totalViewCnt / maxPageCnt);
+			int totalPageCnt = (totalViewCnt-1) / maxPageCnt + 1;
 			int startPage = (pageGroup-1) * maxPageCnt + 1;
 			int endPage = (totalPageCnt-1) / maxPageCnt + 1 == pageGroup ? totalPageCnt : pageGroup * maxPageCnt;
 			

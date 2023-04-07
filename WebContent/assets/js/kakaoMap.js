@@ -125,7 +125,7 @@ document.getElementById("btn-search").addEventListener("click", () => {
 
 var pageInfo;	// 페이지 정보 전역에 저장
 function showTripList(data) {
-//    console.log(data);
+    console.log(data);
     positions = new Array();
     let tbody = document.getElementById("trip-list");
     let tbodyContents = ``;
