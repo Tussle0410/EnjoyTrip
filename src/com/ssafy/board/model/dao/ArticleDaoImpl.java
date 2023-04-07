@@ -95,7 +95,7 @@ public class ArticleDaoImpl implements ArticleDao{
 		try {
 			conn = dbUtil.getConnection();
 			StringBuilder sql = new StringBuilder();
-			sql.append("select a.article_no, title, content, article_category, b.email, hit, registtime, heart, b.heart_code \n");
+			sql.append("select a.article_no, title, content, article_category, a.email, hit, registtime, heart, b.heart_code \n");
 			sql.append("from article a left outer join article_heart b \n");
 			sql.append("on a.article_no = b.article_no and b.email= ? \n");
 			sql.append("where a.article_no = ?");

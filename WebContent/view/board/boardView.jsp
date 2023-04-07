@@ -124,10 +124,13 @@
 								</div>
 
 								<div>
-									<button id="article-delete-btn" class="btn flex-shrink-0"
+								<c:if test="${curEmail == articleInfo.email}">
+													<button id="article-delete-btn" class="btn flex-shrink-0"
 										type="button"
 										style="background: red; color: white; font-weight: bold">
 										삭제</button>
+								</c:if>
+				
 								</div>
 							</div>
 						</div>

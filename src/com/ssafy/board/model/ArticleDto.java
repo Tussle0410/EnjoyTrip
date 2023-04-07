@@ -72,9 +72,9 @@ public class ArticleDto {
 	}
 	@Override
 	public String toString() {
-		return "BoardDto [articleNo=" + articleNo + ", title=" + title + ", content=" + content + ", articleCategory="
-				+ articleCategory + ", imgs=" + email + ", hit=" + hit + ", registTime=" + registTime + ", heart=" + heart
-				+ "]";
+		return "ArticleDto [articleNo=" + articleNo + ", title=" + title + ", content=" + content + ", articleCategory="
+				+ articleCategory + ", email=" + email + ", hit=" + hit + ", registTime=" + registTime + ", heart="
+				+ heart + ", heartFlag=" + heartFlag + "]";
 	}
 	
 	
