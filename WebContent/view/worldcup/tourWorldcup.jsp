@@ -12,7 +12,7 @@
     <%@ include file="/view/include/header.jsp" %>
     <!-- Close Header -->
 
-    <main style="height: 610px">
+    <main style="height: 650px">
       <div class="container-fluid pt-5 mt-5">
         <div class="col-md-6 m-auto text-center">
           <h1 class="h1">여행지 월드컵</h1>
