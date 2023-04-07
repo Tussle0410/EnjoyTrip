@@ -378,5 +378,6 @@ Custom Css
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
 }
 .mypage-back{
+  text-decoration: none;	
   background-color: #4154f1;
 }

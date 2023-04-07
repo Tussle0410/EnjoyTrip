@@ -119,6 +119,7 @@ public class MemberController extends HttpServlet {
 		try {
 			memberService.edit(memberDto);
 			session.setAttribute("userInfo", memberDto);
+			request.setAttribute("msg", "회원정보를 수정했습니다.");
 			return "/view/member/mypage.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();

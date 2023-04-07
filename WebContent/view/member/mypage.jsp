@@ -54,9 +54,7 @@
 										</div>
 										<div class="row mt-2 justify-content-center">
 											<input class="mypage-btn mypage-update col-md-2 p-2" type="submit" value="수정" /> 
-											<input
-												class="mypage-btn mypage-back col-md-2 p-2" type="button"
-												value="돌아가기" />
+											<a href="${root}/view/main.jsp" class="mypage-btn mypage-back col-md-2 p-2" >돌아가기</a>
 										</div>
 									</form>
 								</div>
@@ -73,5 +71,6 @@
 	<!-- Start Footer -->
 	<%@ include file="/view/include/footer.jsp"%>
 	<!-- End Footer -->
+
 </body>
 </html>
