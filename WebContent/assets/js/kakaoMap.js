@@ -1,5 +1,6 @@
 var serviceKey = "hcKdeTIk7zLMkYbUAHEOcXhKRdrDIV4vUXgKVg31qeqB6eJaWfmjQ9SHI6OzGN3p7qI37SfxIbPrLPp15Iglug%3D%3D";
-var rootUrl = "http://localhost:8080/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/attraction?action=";
+var hostname = window.location.hostname;
+var rootUrl = "http://"+ hostname+":8080/EnjoyTrip_BackEnd_seoul_10_CHL_JWJ/attraction?action=";
 var sidoUrl = rootUrl + "sidoFind";
 var gugunUrl = rootUrl + "gugunFind&sidoCode=";
 var attractionUrl = rootUrl + "attractionFind&sidoCode="
