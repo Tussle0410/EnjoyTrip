@@ -105,8 +105,19 @@
 								<c:forEach var="article" items="${articles}">
 									<tr>
 										<td>${article.articleNo }</td>
-										<td class="border-category" style="color: #ad7be9">
-											${article.articleCategory }</td>
+										<c:if test="${article.articleCategory eq '질문'}">
+											<td class="border-category" style="color: #AA77FF">
+												${article.articleCategory }</td>
+										</c:if>
+										<c:if test="${article.articleCategory eq '후기'}">
+											<td class="border-category" style="color: #FF6000">
+												${article.articleCategory }</td>
+										</c:if>
+										<c:if test="${article.articleCategory eq '추천'}">
+											<td class="border-category" style="color: #5B8FB9">
+												${article.articleCategory }</td>
+										</c:if>
+
 										<td class="border-title"><a
 											href="${root}/article?action=view&articleNo=${article.articleNo}"
 											style="text-decoration: none; color: black; font-weight: bold !important">${article.title}</a>
